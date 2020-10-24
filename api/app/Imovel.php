@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Imovel extends Model
 {
     use SoftDeletes;
+    protected $table = 'imoveis';
     
     protected $fillable = [
-        'email', 'rua','bairro','cidade','estado'
+        'email', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado'
     ];
 }
