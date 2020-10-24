@@ -17,8 +17,8 @@ class CreateImoveisTable extends Migration
             $table->bigIncrements('id');
             $table->string('email',30);
             $table->string('rua', 50);
-            $table->string('numero', 15);
-            $table->string('complemento', 50);
+            $table->string('numero', 15)->nullable();
+            $table->string('complemento', 50)->nullable();
             $table->string('bairro', 50);
             $table->string('cidade', 50);
             $table->string('estado', 2);

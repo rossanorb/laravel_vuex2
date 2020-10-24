@@ -26,11 +26,10 @@ class ImovelController extends Controller
             return $this->apiService->response(422);
         };
 
-        try {
-            Imovel::create($request);
-            // $this->apiService->setResult(Imovel::create($request));
-            // $this->apiService->setStatus(true);
-            // return $this->apiService->response(201);
+        try {            
+            $this->apiService->setResult(Imovel::create($request));
+            $this->apiService->setStatus(true);
+            return $this->apiService->response(201);
 
         } catch (\Exception $e) {
             return $this->error($e);
