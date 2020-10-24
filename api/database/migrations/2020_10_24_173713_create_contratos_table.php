@@ -15,9 +15,10 @@ class CreateContratosTable extends Migration
     {
         Schema::create('contratos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('propriedade');
+            $table->unsignedBigInteger('imovel_id');
             $table->boolean('tipo_pessoa');
             $table->string('documento',20);
+            $table->foreign('imovel_id')->references('id')->on('imoveis');
             $table->timestamps();
         });
     }

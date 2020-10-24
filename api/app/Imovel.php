@@ -13,4 +13,8 @@ class Imovel extends Model
     protected $fillable = [
         'email', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado'
     ];
+
+    public function contrato(){
+        return $this->hasOne(Contrato::class);
+    }
 }

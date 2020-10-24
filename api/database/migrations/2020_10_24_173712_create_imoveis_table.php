@@ -22,6 +22,7 @@ class CreateImoveisTable extends Migration
             $table->string('bairro', 50);
             $table->string('cidade', 50);
             $table->string('estado', 2);
+            $table->softDeletes();
             $table->timestamps();
         });  
     }

@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('imoveis')->group(function(){
+    Route::get('/')->uses('ImovelController@index');
     Route::post('/')->uses('ImovelController@store');
 });
