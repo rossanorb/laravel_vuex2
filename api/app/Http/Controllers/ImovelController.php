@@ -62,6 +62,22 @@ class ImovelController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        try {
+            $imovel = Imovel::find($id);            
+            if(!$imovel instanceof Imovel){
+                return $this->apiService->response(404);
+            }
+
+            $imovel->delete();
+            return $this->apiService->response(204);
+
+        } catch (\Exception $e) {
+            return $this->error($e);
+        }
+    }    
+
     private function error( $e ) {
         \Log::error( $e->getMessage() );
         $this->apiService->setErrors( [

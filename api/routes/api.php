@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('imoveis')->group(function(){
     Route::get('/')->uses('ImovelController@index');
     Route::post('/')->uses('ImovelController@store');
+    Route::delete('/{id}')->uses('ImovelController@destroy')->where('id', '[0-9]+');
 });
