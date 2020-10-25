@@ -1,3 +1,11 @@
-body{
-    color:grayscale($color: #36363a);
+#wrapper {
+    header {
+        ul {
+            a {
+                color: white;
+            }
+
+            background-color: #343a40;
+        }
+    }
 }
