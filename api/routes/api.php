@@ -22,3 +22,7 @@ Route::prefix('imoveis')->group(function(){
     Route::post('/')->uses('ImovelController@store');
     Route::delete('/{id}')->uses('ImovelController@destroy')->where('id', '[0-9]+');
 });
+
+Route::prefix('contratos')->group(function(){
+    Route::post('/')->uses('ContratoController@store');
+});

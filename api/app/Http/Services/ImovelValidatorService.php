@@ -24,11 +24,11 @@ class ImovelValidatorService {
         switch($action){
             case 'store' :                
                 $rules = [
-                    'email' => 'required|email:rfc',
-                    'rua' => 'required',
-                    'bairro' => 'required',
-                    'cidade' => 'required',
-                    'estado' => 'required',
+                    'email' => 'required|string|max:30|email:rfc|',
+                    'rua' => 'required|string|max:50',
+                    'bairro' => 'required|string|max:50',
+                    'cidade' => 'required|string|max:50',
+                    'estado' => 'required|string|max:2',
                 ];
                 break;
             case 'update' :

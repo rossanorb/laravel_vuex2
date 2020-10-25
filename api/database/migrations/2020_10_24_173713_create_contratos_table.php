@@ -17,7 +17,9 @@ class CreateContratosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('imovel_id');
             $table->boolean('tipo_pessoa');
-            $table->string('documento',20);
+            $table->string('documento',20);            
+            $table->string('email', 30);
+            $table->string('contratante', 50);
             $table->foreign('imovel_id')->references('id')->on('imoveis');
             $table->timestamps();
         });
