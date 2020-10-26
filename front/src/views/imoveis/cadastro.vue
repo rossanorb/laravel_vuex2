@@ -121,7 +121,7 @@ export default {
             }
         }
     },
-    methods: {
+    methods: {        
         clearErrors: function () {
             this.emailHasError = false;
             this.ruaHasError = false;
@@ -162,13 +162,6 @@ export default {
                 this.errors.estado = 'O preenchimento do campo estado é obrigatório.';
             }
 
-            console.log(this.errors.email.length);
-            console.log(this.emailHasError);
-            console.log(this.ruaHasError);
-            console.log(this.bairroHasError);
-            console.log(this.cidadeHasError);
-            console.log(this.estadoHasError);
-
             if(this.errors.email.length > 0 || this.emailHasError || this.ruaHasError || this.bairroHasError || this.cidadeHasError || this.form.estadoHasError){
                 return false;
             }
@@ -179,6 +172,7 @@ export default {
             
             if(this.checkForm()){
                 console.log('Envia Form');
+                this.$store.dispatch('imovel/create', this.form);
             }
 
             e.preventDefault();
