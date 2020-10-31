@@ -21,6 +21,11 @@
     </div>
 </template>
 
-<style lang="scss">
-  @import 'assets/css/app.scss';
+<style lang="css">
+  #wrapper header ul {
+      background-color: #343a40;
+  }
+  #wrapper header ul a {
+      color: white;
+  }
 </style>
