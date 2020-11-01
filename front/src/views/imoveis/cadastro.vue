@@ -123,7 +123,7 @@ export default {
                 estado:null
             }
         }
-    },
+    },    
     computed: mapState({
         ...mapGetters('imovel', ['response'])
     }),
@@ -226,8 +226,7 @@ export default {
         },
         submit: function(e){
             
-            if(this.checkForm()){
-                console.log('Envia Form');
+            if(this.checkForm()){                
                 this.$store.dispatch('imovel/create', this.form);
             }
 
