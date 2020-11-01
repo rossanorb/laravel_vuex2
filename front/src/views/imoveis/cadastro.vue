@@ -10,7 +10,7 @@
                         <label for="email">Email do Proprietário</label>
                         <input type="text"
                          v-bind:class="{ 'form-control is-invalid': emailHasError, 'form-control': !emailHasError }"
-                         id="email" maxlength="30" placeholder="" v-model="form.email">
+                         id="email" maxlength="100" placeholder="" v-model="form.email">
                         <div class="invalid-feedback" v-for="error in errors.email" :key="error">{{ error }}</div>
                     </div>
 
@@ -95,9 +95,12 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
     data: function(){
         return {
+            frontValidation: false, // habilita validação front-end
             emailHasError: false,
             ruaHasError: false,
             bairroHasError: false,
@@ -121,6 +124,55 @@ export default {
             }
         }
     },
+    computed: mapState({
+        ...mapGetters('imovel', ['response'])
+    }),
+    watch: {
+        response() {            
+            if(this.response.status){
+                alert('Imóvel cadastrado com sucesso!');
+            }else{
+                const hasErrors = Object.prototype.hasOwnProperty.call(this.response.result, 'errors');
+                if (hasErrors) {
+
+                    const email = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'email');
+                    if(email){
+                        this.emailHasError = true;
+                        let errors = this.errors.bairro = this.response.result.errors.email;
+                        console.log(errors)
+                        for(let error of errors){
+                            this.errors.email.push(error);
+                        }
+                    }
+
+                    const rua = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'rua');
+                    if(rua){
+                        this.ruaHasError = true;
+                        this.errors.rua = this.response.result.errors.rua[0];
+                    }
+
+                    const bairro = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'bairro');
+                    if(bairro){
+                        this.bairroHasError = true;
+                        this.errors.bairro = this.response.result.errors.bairro[0];
+                    }
+
+                    const cidade = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'cidade');
+                    if(cidade){
+                        this.cidadeHasError = true;
+                        this.errors.cidade = this.response.result.errors.cidade[0];
+                    }
+
+                    const estado = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'estado');
+                    if(estado){
+                        this.estadoHasError = true;
+                        this.errors.estado = this.response.result.errors.estado[0];
+                    }
+
+                }
+            }
+        }
+    },
     methods: {        
         clearErrors: function () {
             this.emailHasError = false;
@@ -132,6 +184,10 @@ export default {
         },
         checkForm: function () {
             this.clearErrors();
+
+            if(!this.frontValidation){
+                return true;
+            }
 
             const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
             if(!this.form.email){

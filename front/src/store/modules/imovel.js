@@ -4,19 +4,23 @@ const state = {
     response: {}
 };
 
-const getters = {};
+const getters = {
+    response: (state) => {
+        return state.response;
+    }
+};
 
 const mutations = {
-    log(state, response) {
-        console.log(response);
-    }    
+    setResponse(state, response){
+        state.response = response;
+    }
 };
 
 const actions = {
     create({ commit }, form) {
         api.create(form)
             .then(response => {
-                commit('log', response);
+                commit('setResponse', response);
             });
     }    
 };
