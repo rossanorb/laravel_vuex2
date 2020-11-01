@@ -21,7 +21,7 @@
 				<tbody>
 					<tr v-for="(imovel, index) in this.response.result" :key="imovel.key">
 					<td>{{ imovel.email }}</td>
-					<td>{{ imovel.rua }}</td>
+					<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
 					<td>{{ contrato[index] }}</td>
 					<td>
 						<span class="btn-delete" v-on:click="remove(imovel.id)"> <iconTrash  /> </span>
