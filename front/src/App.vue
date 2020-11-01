@@ -6,7 +6,7 @@
                     <router-link class="nav-link" to="/">Imóveis</router-link>
                 </li>
                 <li class="nav-item">                    
-                    <router-link class="nav-link" to="/contratos">Contratos</router-link>
+                    <router-link class="nav-link" to="/contratos/novo">Contratos</router-link>
                 </li>
             </ul>
         </header>

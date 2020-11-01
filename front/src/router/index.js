@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Imoveis from '../views/imoveis/';
-import CadastroImoveis from '../views/imoveis/cadastro'
+import CadastroImoveis from '../views/imoveis/cadastro';
+import NovoContrato from '../views/contratos/cadastro';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
         path:'/imoveis/cadastro',
         name: 'CadastroImoveis',
         component: CadastroImoveis
+    },
+    {
+        path:'/contratos/novo',
+        name: 'NovoContrato',
+        component: NovoContrato
     }
 ];
 
