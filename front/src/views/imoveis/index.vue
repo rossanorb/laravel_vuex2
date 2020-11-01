@@ -12,44 +12,95 @@
 				<table class="table">
 				<thead class="thead-light">
 					<tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
+					<th @click="sort('email')" scope="col">E-mail<span><caretdown class="sort" /></span></th>
+					<th scope="col">Endereço</th>
+					<th scope="col">Status</th>
+					<th scope="col">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-					</tr>
-					<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-					</tr>
-					<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
+					<tr v-for="(imovel, index) in this.response.result" :key="imovel.key">
+					<td>{{ imovel.email }}</td>
+					<td>{{ imovel.rua }}</td>
+					<td>{{ contrato[index] }}</td>
+					<td>
+						<span class="btn-delete" v-on:click="remove(imovel.id)"> <iconTrash  /> </span>
+					</td>
 					</tr>
 				</tbody>
-				</table>			
-			</div>	
+				</table>
+			</div>
 		</div>
 	</div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex';
+import iconTrash from '@/components/icons/trash';
+import caretdown from '@/components/icons/caretdown';
+
 export default {
-  name: "Imoveis",
-  props: {
-    msg: String,
-  },
+	name: "Imoveis",
+	components: {
+		iconTrash,
+		caretdown
+	},
+    props: {
+        msg: String,
+    },
+    created() {
+		this.list();
+	},
+    computed: mapState({
+        ...mapGetters('imovel', ['response','action']),
+        contrato: function(){
+            return this.response.result.map(item =>{
+				if(item.contrato){
+					return 'Contratado';
+				}
+				
+				return 'Não contratado';
+			})
+        }
+	}),
+	methods: {
+		...mapActions('imovel', ['remove','list']),
+        sort(sort) {
+            let order = '';
+            this.order = !this.order;
+            if (this.order) {
+                order = 'asc';
+            } else {
+                order = 'desc';
+            }
+            const queryString = `?order=${sort}&by=${order}&limit`;
+            this.$store.dispatch('imovel/filter', queryString);
+        }
+	},
+    watch: {
+		response() {
+			if(this.action == 'delete'){
+				if(this.response.status){
+					alert('Imóvel removido com sucesso!');
+					this.list();
+				}else{
+					console.log( this.response.errors );
+				}
+			}
+		}
+	}		
 };
 </script>
+
+<style scoped>
+    .btn-delete{
+        cursor: pointer;
+        color: red;
+    }
+	span .sort{
+		margin-left: 10px;
+	}
+
+
+</style>
