@@ -85,7 +85,7 @@ export default {
 					alert('Imóvel removido com sucesso!');
 					this.list();
 				}else{
-					console.log( this.response.errors );
+					alert('Ocorreu um erro!');
 				}
 			}
 		}
