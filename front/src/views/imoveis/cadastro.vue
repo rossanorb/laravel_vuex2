@@ -100,7 +100,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     data: function(){
         return {
-            frontValidation: false, // habilita validação front-end
+            frontValidation: true, // habilita validação front-end
             emailHasError: false,
             ruaHasError: false,
             bairroHasError: false,
