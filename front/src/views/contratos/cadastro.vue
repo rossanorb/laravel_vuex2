@@ -112,11 +112,11 @@ export default {
     }),
 
     created() {
-		this.list();
+		this.filter('?contrato=false');
     },
     
     methods: {
-        ...mapActions('imovel', ['remove','list']),
+        ...mapActions('imovel', ['remove','filter']),
         clearErrors: function () {
             this.emailHasError = false;            
             this.nomeHasError = false;
