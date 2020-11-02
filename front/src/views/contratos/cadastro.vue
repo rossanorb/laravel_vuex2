@@ -8,7 +8,7 @@
                 <form @submit="submit" >
 
                     <div class="form-group">
-                        <label for="contratante">Nome completo do contratante</label>
+                        <label for="contratante">* Nome completo do contratante</label>
                         <input type="text" 
                         v-bind:class="{ 'form-control is-invalid': contratanteHasError, 'form-control': !contratanteHasError }"
                         id="contratante" maxlength="50" placeholder="" v-model="form.contratante">
@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">E-mail do contratante</label>
+                        <label for="email">*  E-mail do contratante</label>
                         <input type="text"
                          v-bind:class="{ 'form-control is-invalid': emailHasError, 'form-control': !emailHasError }"
                          id="email" maxlength="100" placeholder="" v-model="form.email">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tipo_pessoa">Tipo pessoa</label>
+                        <label for="tipo_pessoa">*  Tipo pessoa</label>
                         <select id="tipo_pessoa"  v-model="form.tipo_pessoa" v-bind:class="{ 'form-control is-invalid': tipoPessoaHasError, 'form-control': !tipoPessoaHasError }">
                             <option value="">Selecione...</option>
                             <option value="true">Pessoa física</option>
@@ -34,7 +34,7 @@
                     </div>                   
                     
                     <div class="form-group">
-                        <label for="documento">Documento</label>
+                        <label for="documento">*  Documento</label>
                         <input type="text" v-bind:class="{ 'form-control is-invalid': documentoHasError, 'form-control': !documentoHasError }"
                         v-mask="['###.###.###-##', '##.###.###/####-##']"
                          id="documento" maxlength="100" v-model="form.documento">
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="propriedade">Propriedade</label>
+                        <label for="propriedade">*  Propriedade</label>
                         <select id="propriedade" v-model="form.propriedade" v-bind:class="{ 'form-control is-invalid': propriedadeHasError, 'form-control': !propriedadeHasError }">
                             <option value="">Selecione...</option>
                             <option v-for="(imovel, index) in this.response.result" :key="imovel.id" :value="imovel.id">
@@ -51,6 +51,8 @@
                         </select>
                         <div class="invalid-feedback">{{ errors.propriedade }}</div>
                     </div>
+
+                    <p>*  campos obrigatórios</p>
                     
                     <div class="col-md-12 mt-5">
                         <div class="form-group row">
