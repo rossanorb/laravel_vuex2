@@ -35,7 +35,8 @@
                     
                     <div class="form-group">
                         <label for="documento">Documento</label>
-                        <input type="text" v-bind:class="{ 'form-control is-invalid': documentoHasError, 'form-control': !documentoHasError }"                        
+                        <input type="text" v-bind:class="{ 'form-control is-invalid': documentoHasError, 'form-control': !documentoHasError }"
+                        v-mask="['###.###.###-##', '##.###.###/####-##']"
                          id="documento" maxlength="100" v-model="form.documento">
                         <div class="invalid-feedback">{{ errors.documento }}</div>
                     </div>                    
@@ -54,7 +55,11 @@
 </template>
 
 <script>
+import {mask} from 'vue-the-mask'
+
 export default {
+    components: {},
+    directives: {mask},
     data: function(){
         return {            
             frontValidation: true, // habilita validação front-end
@@ -92,11 +97,11 @@ export default {
                 return true;
             }
 
-            const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+            const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
             if(!this.form.email){
                 this.emailHasError = true;
                 this.errors.email.push('O preenchimento do campo e-mail é obrigatório.');
-            }else if (!this.form.email.match(mailformat)) {
+            }else if (!this.form.email.match(emailRegex)) {
                 this.emailHasError = true;
                 this.errors.email.push('O e-mail é inválido.');                
             }
@@ -106,18 +111,31 @@ export default {
                 this.errors.nome = 'O preenchimento do campo nome é obrigatório.';
             }
 
+            let documentoRegex = '';
             if(this.form.tipo_pessoa == ''){
                 this.tipoPessoaHasError = true;
-                this.documentoHasError = true;
                 this.errors.tipo_pessoa = 'O preenchimento do tipo pessoa é obrigatório.';
-                this.errors.documento = 'O preenchimento do campo documento é obrigatório.';
 
+            }else if(this.form.tipo_pessoa == 'true'){
+                documentoRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+            }else if(this.form.tipo_pessoa == 'false'){
+                documentoRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
             }
-            // else if(this.form.tipo_pessoa == 'true'){                
 
-            // }else if(this.form.tipo_pessoa == 'false'){
+            if(!this.form.documento){
+                this.documentoHasError = true;
+                this.errors.documento = 'O preenchimento do campo documento é obrigatório.';
+            }else{
+                if (!this.form.documento.match(documentoRegex)) {
+                    this.documentoHasError = true;
+                    if(this.form.tipo_pessoa == 'true'){
+                        this.errors.documento = 'O CPF é inválido.';
+                    }else if(this.form.tipo_pessoa == 'false'){
+                        this.errors.documento = 'O CNPJ é inválido.';
+                    }
 
-            // }
+                }
+            }
             
             if(this.errors.email.length > 0 || this.emailHasError || this.nomeHasError || this.tipoPessoaHasError || this.documentoHasError ){
                 return false;
