@@ -8,11 +8,11 @@
                 <form @submit="submit" >
 
                     <div class="form-group">
-                        <label for="nome">Nome completo do contratante</label>
+                        <label for="contratante">Nome completo do contratante</label>
                         <input type="text" 
-                        v-bind:class="{ 'form-control is-invalid': nomeHasError, 'form-control': !nomeHasError }"
-                        id="nome" maxlength="50" placeholder="" v-model="form.nome">
-                        <div class="invalid-feedback">{{ errors.nome }}</div>
+                        v-bind:class="{ 'form-control is-invalid': contratanteHasError, 'form-control': !contratanteHasError }"
+                        id="contratante" maxlength="50" placeholder="" v-model="form.contratante">
+                        <div class="invalid-feedback">{{ errors.contratante }}</div>
                     </div>
 
                     <div class="form-group">
@@ -51,7 +51,7 @@
                         </select>
                         <div class="invalid-feedback">{{ errors.propriedade }}</div>
                     </div>
-                    {{this.form}}
+                    
                     <div class="col-md-12 mt-5">
                         <div class="form-group row">
                             <router-link class="btn btn-secondary" to="/">Cancelar</router-link>
@@ -76,7 +76,7 @@ export default {
         return {            
             frontValidation: true, // habilita validação front-end
             emailHasError: false,
-            nomeHasError: false,
+            contratanteHasError: false,
             tipoPessoaHasError: false,
             documentoHasError: false,
             propriedadeHasError: false,
@@ -86,7 +86,7 @@ export default {
             },
             form: {                
                 email: null,
-                nome: null,
+                contratante: null,
                 documento: null,                
                 tipo_pessoa: "",
                 propriedade: ""
@@ -99,7 +99,8 @@ export default {
         getText: function(){
            return this.response.result.map(item =>{
                const complemento = Object.prototype.hasOwnProperty.call(item, 'complemento');
-				if(complemento){
+               
+				if(typeof complemento === 'string'){
 					return `${item.rua}, ${item.numero}, ${item.complemento}, ${item.bairro}`;
 				}
 				
@@ -138,9 +139,9 @@ export default {
                 this.errors.email.push('O e-mail é inválido.');                
             }
 
-            if(!this.form.nome){
+            if(!this.form.contratante){
                 this.nomeHasError = true;
-                this.errors.nome = 'O preenchimento do campo nome é obrigatório.';
+                this.errors.contratante = 'O preenchimento do campo contratante é obrigatório.';
             }
 
             let documentoRegex = '';
@@ -174,7 +175,10 @@ export default {
                 this.errors.propriedade = 'Selecione a propriedade.';
             }
             
-            if(this.errors.email.length > 0 || this.emailHasError || this.nomeHasError || this.tipoPessoaHasError || this.documentoHasError || this.propriedadeHasError ){
+            if(
+                this.errors.email.length > 0 || this.emailHasError || this.contratanteHasError || 
+                this.tipoPessoaHasError || this.documentoHasError || this.propriedadeHasError 
+            ){
                 return false;
             }
 
@@ -183,9 +187,8 @@ export default {
         
         submit: function(e){
             if(this.checkForm()){                
-                // this.$store.dispatch('contrato/create', this.form);
-                console.log('envia form');
-            }            
+                this.$store.dispatch('contrato/create', this.form);
+            }
             
             e.preventDefault();
         }
