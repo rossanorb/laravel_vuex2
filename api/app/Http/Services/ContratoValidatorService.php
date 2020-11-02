@@ -24,7 +24,7 @@ class ContratoValidatorService {
         $regex_documento = '';
 
         if(\array_key_exists('tipo_pessoa', $request)){
-            if($request['tipo_pessoa']){ // CPF  
+            if(filter_var($request['tipo_pessoa'], FILTER_VALIDATE_BOOLEAN)){ // CPF                  
                 $regex_documento = "^\d{3}\.\d{3}\.\d{3}\-\d{2}$";
             }else{            
                 $regex_documento = '^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$'; //CNPJ
