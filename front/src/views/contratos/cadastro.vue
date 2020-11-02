@@ -76,7 +76,7 @@ export default {
     directives: {mask},
     data: function(){
         return {            
-            frontValidation: false, // habilita validação front-end
+            frontValidation: true, // habilita validação front-end
             emailHasError: false,
             contratanteHasError: false,
             tipoPessoaHasError: false,
