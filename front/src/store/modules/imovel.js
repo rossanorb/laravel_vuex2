@@ -23,10 +23,6 @@ const mutations = {
     setAction(state, action){
         state.action = action;
     },
-
-    log(state, param){
-        console.log(param);
-    }
 };
 
 const actions = {
