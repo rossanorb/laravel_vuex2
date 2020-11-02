@@ -16,15 +16,16 @@ class ContratoController extends Controller
     }
 
     public function store( Request $request ) {
-        $request = $request->all();
+        $request = $request->all();        
 
-        $request['imovel_id'] = $request['propriedade'];
-        $request['tipo_pessoa'] = filter_var($request['tipo_pessoa'], FILTER_VALIDATE_BOOLEAN);
+        $request['imovel_id'] = array_key_exists("propriedade", $request) ? $request['propriedade'] : null;                
 
         if ( $this->validatorService->fails( $request, 'store' ) ) {
             $this->apiService->setErrors( $this->validatorService->getErrors() );
             return $this->apiService->response( 422 );
         }
+
+        $request['tipo_pessoa'] = filter_var($request['tipo_pessoa'], FILTER_VALIDATE_BOOLEAN);        
 
         try {
 
