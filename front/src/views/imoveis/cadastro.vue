@@ -10,7 +10,7 @@
                         <label for="email">* Email do Proprietário</label>
                         <input type="text"
                          v-bind:class="{ 'form-control is-invalid': emailHasError, 'form-control': !emailHasError }"
-                         id="email" maxlength="100" placeholder="" v-model="form.email">
+                         id="email" maxlength="30" placeholder="" v-model="form.email">
                         <div class="invalid-feedback" v-for="error in errors.email" :key="error">{{ error }}</div>
                     </div>
 
@@ -127,13 +127,14 @@ export default {
         }
     },    
     computed: mapState({
-        ...mapGetters('imovel', ['response'])
+        ...mapGetters('imovel', ['response','action'])
     }),
     watch: {
-        response() {
+        response() {            
             if(this.action == 'create'){
                 if(this.response.status){
                     alert('Imóvel cadastrado com sucesso!');
+                    this.$router.push('/');
                 }else{
                     const hasErrors = Object.prototype.hasOwnProperty.call(this.response.result, 'errors');
                     if (hasErrors) {
