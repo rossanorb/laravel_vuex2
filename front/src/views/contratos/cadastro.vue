@@ -25,7 +25,7 @@
 
                     <div class="form-group">
                         <label for="tipo_pessoa">Tipo pessoa</label>
-                        <select id="tipo_pessoa" v-on:change="mask" v-model="form.tipo_pessoa" v-bind:class="{ 'form-control is-invalid': tipoPessoaHasError, 'form-control': !tipoPessoaHasError }">
+                        <select id="tipo_pessoa"  v-model="form.tipo_pessoa" v-bind:class="{ 'form-control is-invalid': tipoPessoaHasError, 'form-control': !tipoPessoaHasError }">
                             <option value="">Selecione...</option>
                             <option value="true">Pessoa física</option>
                             <option value="false">Pessoa jurídica</option>
@@ -39,8 +39,19 @@
                         v-mask="['###.###.###-##', '##.###.###/####-##']"
                          id="documento" maxlength="100" v-model="form.documento">
                         <div class="invalid-feedback">{{ errors.documento }}</div>
-                    </div>                    
+                    </div>
 
+                    <div class="form-group">
+                        <label for="propriedade">Propriedade</label>
+                        <select id="propriedade" v-model="form.propriedade" v-bind:class="{ 'form-control is-invalid': propriedadeHasError, 'form-control': !propriedadeHasError }">
+                            <option value="">Selecione...</option>
+                            <option v-for="(imovel, index) in this.response.result" :key="imovel.id" :value="imovel.id">
+                                {{ getText[index] }}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">{{ errors.propriedade }}</div>
+                    </div>
+                    {{this.form}}
                     <div class="col-md-12 mt-5">
                         <div class="form-group row">
                             <router-link class="btn btn-secondary" to="/">Cancelar</router-link>
@@ -55,7 +66,8 @@
 </template>
 
 <script>
-import {mask} from 'vue-the-mask'
+import { mapState, mapGetters, mapActions } from 'vuex';
+import {mask} from 'vue-the-mask';
 
 export default {
     components: {},
@@ -67,6 +79,7 @@ export default {
             nomeHasError: false,
             tipoPessoaHasError: false,
             documentoHasError: false,
+            propriedadeHasError: false,
             errors: {
                 email:[],
                 nome: []
@@ -74,20 +87,39 @@ export default {
             form: {                
                 email: null,
                 nome: null,
-                documento: null,
-                documento_pattern: '',
+                documento: null,                
                 tipo_pessoa: "",
-                propriedade: null
+                propriedade: ""
             }
         }
     },
 
+    computed: mapState({
+        ...mapGetters('imovel', ['response']),
+        getText: function(){
+           return this.response.result.map(item =>{
+               const complemento = Object.prototype.hasOwnProperty.call(item, 'complemento');
+				if(complemento){
+					return `${item.rua}, ${item.numero}, ${item.complemento}, ${item.bairro}`;
+				}
+				
+				return `${item.rua}, ${item.numero}, ${item.bairro}`;
+			});            
+        }
+    }),
+
+    created() {
+		this.list();
+    },
+    
     methods: {
+        ...mapActions('imovel', ['remove','list']),
         clearErrors: function () {
             this.emailHasError = false;            
             this.nomeHasError = false;
             this.tipoPessoaHasError = false;
-            this.documentoHasError = false,            
+            this.documentoHasError = false,
+            this.propriedadeHasError = false,
             this.errors.email = [];
         },
         checkForm: function () {
@@ -114,7 +146,7 @@ export default {
             let documentoRegex = '';
             if(this.form.tipo_pessoa == ''){
                 this.tipoPessoaHasError = true;
-                this.errors.tipo_pessoa = 'O preenchimento do tipo pessoa é obrigatório.';
+                this.errors.tipo_pessoa = 'Selecione o tipo pessoa.';
 
             }else if(this.form.tipo_pessoa == 'true'){
                 documentoRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
@@ -136,21 +168,22 @@ export default {
 
                 }
             }
+
+            if(!this.form.propriedade){
+                this.propriedadeHasError = true;
+                this.errors.propriedade = 'Selecione a propriedade.';
+            }
             
-            if(this.errors.email.length > 0 || this.emailHasError || this.nomeHasError || this.tipoPessoaHasError || this.documentoHasError ){
+            if(this.errors.email.length > 0 || this.emailHasError || this.nomeHasError || this.tipoPessoaHasError || this.documentoHasError || this.propriedadeHasError ){
                 return false;
             }
 
             return true;             
         },
-
-        mask() {
-
-        },
-
+        
         submit: function(e){
             if(this.checkForm()){                
-                // this.$store.dispatch('imovel/create', this.form);
+                // this.$store.dispatch('contrato/create', this.form);
                 console.log('envia form');
             }            
             

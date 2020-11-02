@@ -1,4 +1,4 @@
-import api from '../../api/apiImovel';
+import api from '../../api/apimovel';
 
 const state = {    
     response: {},
