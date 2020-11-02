@@ -101,13 +101,22 @@ export default {
         ...mapGetters('contrato', ['contrato','action']),
         getText: function(){
            return this.response.result.map(item =>{
-               const complemento = Object.prototype.hasOwnProperty.call(item, 'complemento');
+               let endereco = '';
                
-				if(typeof complemento === 'string'){
-					return `${item.rua}, ${item.numero}, ${item.complemento}, ${item.bairro}`;
-				}
+               endereco = `${item.rua}, `;
+
+               if(item.numero){
+                    endereco += `${item.numero}, `;
+               }
+
+               if(item.complemento){
+                   endereco += `${item.complemento}, `;
+               }
+
+                endereco += `${item.bairro} `;
+
 				
-				return `${item.rua}, ${item.numero}, ${item.bairro}`;
+				return endereco;
 			});            
         }
     }),
