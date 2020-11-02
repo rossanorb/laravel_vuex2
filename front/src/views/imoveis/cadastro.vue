@@ -141,8 +141,7 @@ export default {
                         const email = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'email');
                         if(email){
                             this.emailHasError = true;
-                            let errors = this.errors.bairro = this.response.result.errors.email;
-                            console.log(errors)
+                            let errors = this.errors.bairro = this.response.result.errors.email;                            
                             for(let error of errors){
                                 this.errors.email.push(error);
                             }
