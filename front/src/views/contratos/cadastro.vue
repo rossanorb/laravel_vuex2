@@ -19,7 +19,7 @@
                         <label for="email">*  E-mail do contratante</label>
                         <input type="text"
                          v-bind:class="{ 'form-control is-invalid': emailHasError, 'form-control': !emailHasError }"
-                         id="email" maxlength="100" placeholder="" v-model="form.email">
+                         id="email" maxlength="30" placeholder="" v-model="form.email">
                         <div class="invalid-feedback" v-for="error in errors.email" :key="error">{{ error }}</div>
                     </div>
 
@@ -37,7 +37,7 @@
                         <label for="documento">*  Documento</label>
                         <input type="text" v-bind:class="{ 'form-control is-invalid': documentoHasError, 'form-control': !documentoHasError }"
                         v-mask="['###.###.###-##', '##.###.###/####-##']"
-                         id="documento" maxlength="100" v-model="form.documento">
+                         id="documento" maxlength="20" v-model="form.documento">
                         <div class="invalid-feedback">{{ errors.documento }}</div>
                     </div>
 
