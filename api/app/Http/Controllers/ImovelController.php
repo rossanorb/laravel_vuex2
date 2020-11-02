@@ -27,6 +27,8 @@ class ImovelController extends Controller
         $by = $request['by'] ?? 'asc';
         $like = $request['like'] ?? null;
         $limit = $request['limit'] ?? 100;
+        $contrato = $request['contrato'] ?? true;
+        $contrato = filter_var($contrato, FILTER_VALIDATE_BOOLEAN);
 
         if(!\in_array( $order, $this->order)){
             $order = 'id';
@@ -36,7 +38,12 @@ class ImovelController extends Controller
             $by = 'asc';
         }
 
-        $result = Imovel::with('contrato')->orderBy($order, $by)->paginate($limit);
+        if($contrato){
+            $result = Imovel::with('contrato')->orderBy($order, $by)->paginate($limit);
+        }else{
+            $result = Imovel::doesnthave('contrato')->orderBy($order, $by)->paginate($limit);
+        }        
+
         $this->apiService->setResult($result);
         $this->apiService->setStatus(true);
         return $this->apiService->response();
