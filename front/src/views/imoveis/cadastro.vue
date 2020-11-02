@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <form @submit="submit" >
                     <div class="form-group">
-                        <label for="email">Email do Proprietário</label>
+                        <label for="email">* Email do Proprietário</label>
                         <input type="text"
                          v-bind:class="{ 'form-control is-invalid': emailHasError, 'form-control': !emailHasError }"
                          id="email" maxlength="100" placeholder="" v-model="form.email">
@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="rua">Rua</label>
+                        <label for="rua">* Rua</label>
                         <input type="text" 
                         v-bind:class="{ 'form-control is-invalid': ruaHasError, 'form-control': !ruaHasError }"
                         id="rua" maxlength="50" placeholder="" v-model="form.rua">
@@ -33,21 +33,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="bairro">Bairro</label>
+                        <label for="bairro">* Bairro</label>
                         <input type="text" v-bind:class="{ 'form-control is-invalid': bairroHasError, 'form-control': !bairroHasError }"
                         id="bairro" maxlength="50" placeholder="" v-model="form.bairro">
                         <div class="invalid-feedback">{{ errors.bairro }}</div>
                     </div>
 
                     <div class="form-group">
-                        <label for="cidade">Cidade</label>
+                        <label for="cidade">* Cidade</label>
                         <input type="text" v-bind:class="{ 'form-control is-invalid': cidadeHasError, 'form-control': !cidadeHasError }"
                         id="cidade" maxlength="50" placeholder="" v-model="form.cidade">
                         <div class="invalid-feedback">{{ errors.cidade }}</div>
                     </div>
 
                     <div class="form-group">
-                        <label for="estado">Estado</label>
+                        <label for="estado">* Estado</label>
                         <select v-bind:class="{ 'form-control is-invalid': estadoHasError, 'form-control': !estadoHasError }" id="estado" v-model="form.estado">
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
@@ -80,12 +80,14 @@
                         <div class="invalid-feedback">{{ errors.estado }}</div>
                     </div>
 
+                    <p>*  campos obrigatórios</p>
+
                     <div class="col-md-12 mt-5">
                         <div class="form-group row">
                             <router-link class="btn btn-secondary" to="/">Cancelar</router-link>
                             <button type="submit" class="btn btn-primary ml-1" >Salvar</button>
                         </div>
-                    </div>                    
+                    </div>
 
                 </form>
 
