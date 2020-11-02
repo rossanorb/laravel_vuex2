@@ -142,7 +142,7 @@ export default {
             }
 
             if(!this.form.contratante){
-                this.nomeHasError = true;
+                this.contratanteHasError = true;
                 this.errors.contratante = 'O preenchimento do campo contratante é obrigatório.';
             }
 
