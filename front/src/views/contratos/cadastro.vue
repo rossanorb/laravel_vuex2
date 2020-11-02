@@ -102,7 +102,7 @@ export default {
         getText: function(){
            return this.response.result.map(item =>{
                let endereco = '';
-               
+
                endereco = `${item.rua}, `;
 
                if(item.numero){
@@ -127,7 +127,8 @@ export default {
             if(this.action == 'create'){
                 
                 if(this.contrato.status){
-                    alert('Imóvel cadastrado com sucesso!');
+                    alert('Contrato realizado com sucesso!');
+                    this.$router.push('/');
                 }else{
                     const hasErrors = Object.prototype.hasOwnProperty.call(this.contrato.result, 'errors');
                     if (hasErrors) {
