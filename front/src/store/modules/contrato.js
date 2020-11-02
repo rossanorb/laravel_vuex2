@@ -1,15 +1,23 @@
 import api from './../../api/apicontrato';
 
 const state = {
-    response: {},
+    contrato: {},
     action: 'list'
 };
 
-const getters = {}
+const getters = {
+    contrato: (state) => {
+        return state.contrato;
+    },
+
+    action: (state) => {
+        return state.action;
+    }    
+}
 
 const mutations = {
     setResponse(state, response){
-        state.response = response;
+        state.contrato = response;
     },
 
     setAction(state, action){
@@ -25,7 +33,7 @@ const actions = {
     create({ commit }, form) {
         api.create(form)
             .then(response => {
-                commit('setAction', 'create');
+                commit('setAction', 'create');                
                 commit('setResponse', response);
             });
     },

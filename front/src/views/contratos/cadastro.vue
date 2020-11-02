@@ -76,7 +76,7 @@ export default {
     directives: {mask},
     data: function(){
         return {            
-            frontValidation: true, // habilita validação front-end
+            frontValidation: false, // habilita validação front-end
             emailHasError: false,
             contratanteHasError: false,
             tipoPessoaHasError: false,
@@ -98,6 +98,7 @@ export default {
 
     computed: mapState({
         ...mapGetters('imovel', ['response']),
+        ...mapGetters('contrato', ['contrato','action']),
         getText: function(){
            return this.response.result.map(item =>{
                const complemento = Object.prototype.hasOwnProperty.call(item, 'complemento');
@@ -111,6 +112,66 @@ export default {
         }
     }),
 
+    watch: {
+        contrato() {
+
+            if(this.action == 'create'){
+                
+                if(this.contrato.status){
+                    alert('Imóvel cadastrado com sucesso!');
+                }else{
+                    const hasErrors = Object.prototype.hasOwnProperty.call(this.contrato.result, 'errors');
+                    if (hasErrors) {
+
+                        const imovel = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'imovel');
+                        if(imovel){
+                            let error = this.errors.bairro = this.contrato.result.errors.imovel;
+                            alert(error);
+                        }
+
+                        const contratante = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'contratante');
+                        if(contratante){
+                            this.contratanteHasError = true;
+                            this.errors.contratante = this.contrato.result.errors.contratante[0];
+                        }
+
+                       const email = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'email');
+                        if(email){
+                            this.emailHasError = true;
+                            let errors = this.errors.bairro = this.contrato.result.errors.email;                            
+                            for(let error of errors){
+                                this.errors.email.push(error);
+                            }
+                        }
+
+                        const tipo_pessoa = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'tipo_pessoa');
+                        if(tipo_pessoa){
+                            this.tipoPessoaHasError = true;
+                            this.errors.tipo_pessoa = this.contrato.result.errors.tipo_pessoa[0];
+                        }
+
+                        const documento = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'documento');
+                        if(documento){
+                            this.documentoHasError = true;
+                            this.errors.documento = this.contrato.result.errors.documento[0];
+                        }
+
+                        const propriedade = Object.prototype.hasOwnProperty.call(this.contrato.result.errors, 'imovel_id');
+                        if(propriedade){
+                            this.propriedadeHasError = true;
+                            this.errors.propriedade = this.contrato.result.errors.propriedade[0];
+                        }                        
+
+                        
+                    }
+                }
+
+            }
+            
+            
+        }
+    },
+
     created() {
 		this.filter('?contrato=false');
     },
@@ -119,7 +180,7 @@ export default {
         ...mapActions('imovel', ['remove','filter']),
         clearErrors: function () {
             this.emailHasError = false;            
-            this.nomeHasError = false;
+            this.contratanteHasError = false;
             this.tipoPessoaHasError = false;
             this.documentoHasError = false,
             this.propriedadeHasError = false,
