@@ -18,6 +18,7 @@ class ContratoController extends Controller
     public function store( Request $request ) {
         $request = $request->all();
 
+        $request['imovel_id'] = $request['propriedade'];
         $request['tipo_pessoa'] = filter_var($request['tipo_pessoa'], FILTER_VALIDATE_BOOLEAN);
 
         if ( $this->validatorService->fails( $request, 'store' ) ) {
