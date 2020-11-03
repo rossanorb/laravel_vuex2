@@ -19,3 +19,4 @@ Aplicação em Laravel 5.8 com vue/vuex
 
 - Acessar aplicação pela url http://localhost
 
+
