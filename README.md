@@ -11,7 +11,7 @@ Aplicação em Laravel 5.8 com vue/vuex
 - Aplicação backend está na pasta api
 - Aplicação front-end (SPA) está na pasta front
 
-- Para rodas testes:
+- Para rodar testes:
 - Acessar container docker php e rodar o seguinte comando:
 
 ./vendor/bin/phpunit --debug --verbose --color
