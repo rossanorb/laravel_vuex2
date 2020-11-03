@@ -17,5 +17,5 @@ Aplicação em Laravel 5.8 com vue/vuex
 ./vendor/bin/phpunit --debug --verbose --color
 
 
-- Acessar aplicação pelo url http://localhost
+- Acessar aplicação pela url http://localhost
 
