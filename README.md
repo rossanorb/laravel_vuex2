@@ -11,6 +11,8 @@ Aplicação em Laravel 5.8 com vue/vuex
 - Aplicação backend está na pasta api
 - Aplicação front-end (SPA) está na pasta front
 
+- Rodar php artisan migrate no container test-app
+
 - Para rodar testes:
 - Acessar container docker php e rodar o seguinte comando:
 
