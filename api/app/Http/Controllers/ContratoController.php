@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\ApiService;
 use App\Http\Services\ContratoValidatorService;
 use App\Contrato;
+use App\Jobs\SendEmail;
 
 class ContratoController extends Controller
 {
@@ -28,8 +29,9 @@ class ContratoController extends Controller
         $request['tipo_pessoa'] = filter_var($request['tipo_pessoa'], FILTER_VALIDATE_BOOLEAN);        
 
         try {
-
-            $this->apiService->setResult( Contrato::create( $request ) );
+            $contrato = Contrato::create( $request );
+            SendEmail::dispatch($contrato);
+            $this->apiService->setResult( $contrato );
             $this->apiService->setStatus( true );
             return $this->apiService->response( 201 );
 
