@@ -24,4 +24,4 @@ Aplicação em Laravel 5.8 com vue/vuex
 
 - Quando novo contrato é criado um email é posto em uma fila. Para disparar a fila execute no terminal:
 
--- php artisan queue:work --once
+php artisan queue:work --once
