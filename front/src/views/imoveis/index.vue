@@ -1,13 +1,21 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid">	
     <div class="py-5 text-center">
       <h2>Imóveis</h2>
     </div>
 	<div class="row">
 		<div class="col-sm-12">			
 			<router-link to="/imoveis/cadastro" class="btn btn-success mb-3">Cadastrar</router-link>
+			<button @click="deletar()" class="btn btn-danger mb-3 ml-3">Modal</button>
 		</div>
 		<div class="col-sm-12">
+			{{isVisibleDialog}}
+			<Dialog 
+				v-if="isVisibleDialog" 
+				@show=closeDialog
+				@confirm=confirm
+				:callback=this
+			/>
 			<div class="table-responsive">	
 				<table class="table">
 				<thead class="thead-light">
@@ -39,17 +47,24 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import iconTrash from '@/components/icons/trash';
 import caretdown from '@/components/icons/caretdown';
+import Dialog from '@/components/dialog';
 
 export default {
 	name: "Imoveis",
 	components: {
 		iconTrash,
-		caretdown
+		caretdown,
+		Dialog
 	},
     props: {
-        msg: String,
-    },
-    created() {
+		msg: String,
+	},
+	data: function(){
+		return {
+			isVisibleDialog: false			
+		}
+	},
+    created() {		
 		this.list();
 	},
     computed: mapState({
@@ -76,7 +91,28 @@ export default {
             }
             const queryString = `?order=${sort}&by=${order}&limit`;
             this.$store.dispatch('imovel/filter', queryString);
-        }
+		},
+		deletar(){
+			this.isVisibleDialog = true;
+		},
+		hello(){
+			alert('hello');
+		},
+		closeDialog(arg){
+			this.isVisibleDialog = arg;
+		},
+		confirm(arg, callback){
+			this.isVisibleDialog = false;			
+			let promise = arg;			
+			console.log(promise);
+			promise.then(response =>{				
+				if(response){
+					callback.hello()
+				}				
+			})
+			
+		}
+
 	},
     watch: {
 		response() {
