@@ -10,9 +10,9 @@
 		<div class="col-sm-12">			
 			<Dialog 
 				v-if="isVisibleDialog" 
-				@show=closeDialog
+				@show=closeDialog				
 				:callback=this.callback
-					
+				:title="'Deseja excluir o imóvel ?'"				
 			/>
 			<div class="table-responsive">	
 				<table class="table">
@@ -66,6 +66,7 @@ export default {
 	},
     created() {		
 		this.list();
+		this.isVisibleDialog = true;
 	},
     computed: mapState({
         ...mapGetters('imovel', ['response','action']),

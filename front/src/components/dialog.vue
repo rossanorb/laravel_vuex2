@@ -1,17 +1,16 @@
 <template>
-  <div id="myModal" class="modal">
+  <div id="dialog" class="modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Modal Header</h2>
+      <div class="modal-header">        
+        <span class="close" @click="cancel()">&times;</span>
       </div>
       <div class="modal-body">
-        <p>Deseja Excluir</p>
-        <p>este item?</p>
+        <h2 class="title">{{title ? title : 'Deseja realmente excluir ?'}}</h2>
+        <p class="text">{{description ? description : 'Após exclusão os dados não poderão mais ser recuperados'}}</p>
       </div>
       <div class="modal-footer">
-        <button ref="confirm" id="confirm" @click="confirm()">SIM</button>
-        <button ref="cancel" id="cancel" @click="cancel()">NO</button>
+        <button class="btn btn-danger" id="confirm" @click="confirm()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" id="cancel" @click="cancel()">Cancelar</button>
       </div>
     </div>
   </div>
@@ -21,7 +20,9 @@
 export default {
   name: "Dialog",
     props: {
-        visible: Boolean,
+        visible: { type: Boolean },
+        title: { type: String},
+        description: { type: String},
         callback: { type: Function },
     },
     data() {
@@ -62,7 +63,7 @@ export default {
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 50%;
+  width: 25%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -95,7 +96,7 @@ export default {
 
 /* The Close Button */
 .close {
-  color: white;
+  color: gray;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -109,19 +110,22 @@ export default {
 }
 
 .modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
+  border-bottom: none;
+  
+  padding: 2px 16px;  
   color: white;
 }
 
 .modal-body {
-  padding: 2px 16px;
+  padding: 2px 16px;  
+  text-align: center;
 }
 
 .modal-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
+  padding: 2px 16px;  
   color: white;
+  border-top: none;
+  justify-content: center;
 }
 </style>
 
