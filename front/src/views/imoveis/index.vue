@@ -6,11 +6,8 @@
 	<div class="row">
 		<div class="col-sm-12">			
 			<router-link to="/imoveis/cadastro" class="btn btn-success mb-3">Cadastrar</router-link>
-			<button @click="confirmDelete(2)" class="btn btn-danger mb-3 ml-3">Excluir</button>
-			<button @click="confirmHello()" class="btn btn-primary mb-3 ml-3">Hello</button>
 		</div>
-		<div class="col-sm-12">
-			{{isVisibleDialog}}
+		<div class="col-sm-12">			
 			<Dialog 
 				v-if="isVisibleDialog" 
 				@show=closeDialog
@@ -33,7 +30,7 @@
 					<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
 					<td>{{ contrato[index] }}</td>
 					<td>
-						<span class="btn-delete" v-on:click="remove(imovel.id)"> <iconTrash  /> </span>
+						<span class="btn-delete" v-on:click="confirmDelete(imovel)"> <iconTrash  /> </span>
 					</td>
 					</tr>
 				</tbody>
@@ -83,7 +80,7 @@ export default {
         }
 	}),
 	methods: {
-		...mapActions('imovel', ['remove','list']),
+		...mapActions('imovel', ['list']),
         sort(sort) {
             let order = '';
             this.order = !this.order;
@@ -96,24 +93,14 @@ export default {
             this.$store.dispatch('imovel/filter', queryString);
 		},
 
-		hello(){
-			alert('hello');
+		remove(){
+			this.$store.dispatch('imovel/remove', this.id)
 		},
-		excluir(){
-			alert(`Excluir id ${this.id}`);
-			this.id = 0;
-		},
-
-		confirmDelete(id){
+		confirmDelete(imovel){
 			this.isVisibleDialog = true;
-			this.id = id;
-			this.callback = this.excluir;
+			this.id = imovel.id;
+			this.callback = this.remove;
 		},
-		confirmHello(){
-			this.isVisibleDialog = true;
-			this.callback = this.hello;
-		},
-
 		closeDialog(arg){
 			this.isVisibleDialog = arg;
 		}

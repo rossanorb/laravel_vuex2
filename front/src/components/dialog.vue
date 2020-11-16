@@ -24,19 +24,9 @@ export default {
         visible: Boolean,
         callback: { type: Function },
     },
-    created() {
-        this.p = new Promise((resolve, reject) => {
-        resolve(true);
-
-        reject(true);
-        });
-    },
     data() {
-        return {
-            p: Promise,
-        };
+        return {};
     },
-
     methods: {
         cancel: function () {
             this.$emit("show", false);
