@@ -6,15 +6,16 @@
 	<div class="row">
 		<div class="col-sm-12">			
 			<router-link to="/imoveis/cadastro" class="btn btn-success mb-3">Cadastrar</router-link>
-			<button @click="deletar()" class="btn btn-danger mb-3 ml-3">Modal</button>
+			<button @click="confirmDelete(2)" class="btn btn-danger mb-3 ml-3">Excluir</button>
+			<button @click="confirmHello()" class="btn btn-primary mb-3 ml-3">Hello</button>
 		</div>
 		<div class="col-sm-12">
 			{{isVisibleDialog}}
 			<Dialog 
 				v-if="isVisibleDialog" 
 				@show=closeDialog
-				@confirm=confirm
-				:callback=this
+				:callback=this.callback
+					
 			/>
 			<div class="table-responsive">	
 				<table class="table">
@@ -61,7 +62,9 @@ export default {
 	},
 	data: function(){
 		return {
-			isVisibleDialog: false			
+			isVisibleDialog: false,
+			callback: Function,
+			id: null
 		}
 	},
     created() {		
@@ -92,26 +95,29 @@ export default {
             const queryString = `?order=${sort}&by=${order}&limit`;
             this.$store.dispatch('imovel/filter', queryString);
 		},
-		deletar(){
-			this.isVisibleDialog = true;
-		},
+
 		hello(){
 			alert('hello');
 		},
+		excluir(){
+			alert(`Excluir id ${this.id}`);
+			this.id = 0;
+		},
+
+		confirmDelete(id){
+			this.isVisibleDialog = true;
+			this.id = id;
+			this.callback = this.excluir;
+		},
+		confirmHello(){
+			this.isVisibleDialog = true;
+			this.callback = this.hello;
+		},
+
 		closeDialog(arg){
 			this.isVisibleDialog = arg;
-		},
-		confirm(arg, callback){
-			this.isVisibleDialog = false;			
-			let promise = arg;			
-			console.log(promise);
-			promise.then(response =>{				
-				if(response){
-					callback.hello()
-				}				
-			})
-			
 		}
+	
 
 	},
     watch: {
