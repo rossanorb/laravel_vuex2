@@ -65,8 +65,7 @@ export default {
 		}
 	},
     created() {		
-		this.list();
-		this.isVisibleDialog = true;
+		this.list();		
 	},
     computed: mapState({
         ...mapGetters('imovel', ['response','action']),
