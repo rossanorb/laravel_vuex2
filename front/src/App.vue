@@ -1,5 +1,5 @@
 <template>
-    <div id="wrapper">
+    <div id="wrapper">        
         <header>
             <ul class="nav justify-content-center">                
                 <li class="nav-item">                    
@@ -18,8 +18,19 @@
                 <p>© 2017-2020 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
             </footer>            
         </main>
+        <loading />
     </div>
 </template>
+
+<script>
+import loading from '@/components/loading';
+export default {
+    name: 'App',
+    components: {
+        loading
+    }
+};
+</script>
 
 <style lang="css">
   #wrapper header ul {
