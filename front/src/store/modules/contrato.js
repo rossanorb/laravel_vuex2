@@ -16,7 +16,7 @@ const getters = {
 }
 
 const mutations = {
-    setResponse(state, response){
+    seContrato(state, response){
         state.contrato = response;
     },
 
@@ -34,7 +34,7 @@ const actions = {
         api.create(form)
             .then(response => {
                 commit('setAction', 'create');                
-                commit('setResponse', response);
+                commit('seContrato', response);
             });
     },
 

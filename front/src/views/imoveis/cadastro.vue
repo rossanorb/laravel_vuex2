@@ -127,7 +127,7 @@ export default {
         }
     },    
     computed: mapState({
-        ...mapGetters('imovel', ['imovel','action'])
+        ...mapGetters('imovel', ['imovel','imoveis','action'])
     }),
     watch: {
         imovel() {            

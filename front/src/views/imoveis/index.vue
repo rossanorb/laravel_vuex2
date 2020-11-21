@@ -68,7 +68,7 @@ export default {
 		this.list();		
 	},
     computed: mapState({
-        ...mapGetters('imovel', ['imoveis','action']),
+        ...mapGetters('imovel', ['imoveis','action', 'imovel']),
         contrato: function(){
             return this.imoveis.result.map(item =>{
 				if(item.contrato){
@@ -94,7 +94,8 @@ export default {
 		},
 
 		remove(){
-			this.$store.dispatch('imovel/remove', this.id)
+			this.$store.dispatch('imovel/remove', this.id);
+			this.list();
 		},
 		confirmDelete(imovel){
 			this.isVisibleDialog = true;
@@ -108,9 +109,9 @@ export default {
 
 	},
     watch: {
-		imoveis() {
+		imovel() {
 			if(this.action == 'delete'){
-				if(this.imoveis.status){
+				if(this.imovel.status){
 					alert('Imóvel removido com sucesso!');
 					this.list();
 				}else{

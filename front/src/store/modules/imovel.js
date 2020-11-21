@@ -57,7 +57,7 @@ const actions = {
             .then(response => {
                 if (response.status) {
                     commit('setAction', 'list');
-                    commit('setResponse', response);
+                    commit('setImoveis', response);
                 }
             });
     },    
@@ -65,7 +65,7 @@ const actions = {
         api.delete(id)
             .then(response => {
                 commit('setAction', 'delete');
-                commit('setResponse', response);
+                commit('setImovel', response);
         });
     }    
 };

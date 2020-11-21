@@ -45,7 +45,7 @@
                         <label for="propriedade">*  Propriedade</label>
                         <select id="propriedade" v-model="form.propriedade" v-bind:class="{ 'form-control is-invalid': propriedadeHasError, 'form-control': !propriedadeHasError }">
                             <option value="">Selecione...</option>
-                            <option v-for="(imovel, index) in this.response.result" :key="imovel.id" :value="imovel.id">
+                            <option v-for="(imovel, index) in this.imoveis.result" :key="imovel.id" :value="imovel.id">
                                 {{ getText[index] }}
                             </option>
                         </select>
@@ -97,10 +97,10 @@ export default {
     },
 
     computed: mapState({
-        ...mapGetters('imovel', ['response']),
+        ...mapGetters('imovel', ['imoveis']),
         ...mapGetters('contrato', ['contrato','action']),
         getText: function(){
-           return this.response.result.map(item =>{
+           return this.imoveis.result.map(item =>{
                let endereco = '';
 
                endereco = `${item.rua}, `;
