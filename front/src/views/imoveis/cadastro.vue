@@ -127,49 +127,49 @@ export default {
         }
     },    
     computed: mapState({
-        ...mapGetters('imovel', ['response','action'])
+        ...mapGetters('imovel', ['imovel','action'])
     }),
     watch: {
-        response() {            
+        imovel() {            
             if(this.action == 'create'){
-                if(this.response.status){
+                if(this.imovel.status){
                     alert('Imóvel cadastrado com sucesso!');
                     this.$router.push('/');
                 }else{
-                    const hasErrors = Object.prototype.hasOwnProperty.call(this.response.result, 'errors');
+                    const hasErrors = Object.prototype.hasOwnProperty.call(this.imovel.result, 'errors');
                     if (hasErrors) {
 
-                        const email = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'email');
+                        const email = Object.prototype.hasOwnProperty.call(this.imovel.result.errors, 'email');
                         if(email){
                             this.emailHasError = true;
-                            let errors = this.errors.bairro = this.response.result.errors.email;                            
+                            let errors = this.errors.bairro = this.imovel.result.errors.email;                            
                             for(let error of errors){
                                 this.errors.email.push(error);
                             }
                         }
 
-                        const rua = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'rua');
+                        const rua = Object.prototype.hasOwnProperty.call(this.imovel.result.errors, 'rua');
                         if(rua){
                             this.ruaHasError = true;
-                            this.errors.rua = this.response.result.errors.rua[0];
+                            this.errors.rua = this.imovel.result.errors.rua[0];
                         }
 
-                        const bairro = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'bairro');
+                        const bairro = Object.prototype.hasOwnProperty.call(this.imovel.result.errors, 'bairro');
                         if(bairro){
                             this.bairroHasError = true;
-                            this.errors.bairro = this.response.result.errors.bairro[0];
+                            this.errors.bairro = this.imovel.result.errors.bairro[0];
                         }
 
-                        const cidade = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'cidade');
+                        const cidade = Object.prototype.hasOwnProperty.call(this.imovel.result.errors, 'cidade');
                         if(cidade){
                             this.cidadeHasError = true;
-                            this.errors.cidade = this.response.result.errors.cidade[0];
+                            this.errors.cidade = this.imovel.result.errors.cidade[0];
                         }
 
-                        const estado = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'estado');
+                        const estado = Object.prototype.hasOwnProperty.call(this.imovel.result.errors, 'estado');
                         if(estado){
                             this.estadoHasError = true;
-                            this.errors.estado = this.response.result.errors.estado[0];
+                            this.errors.estado = this.imovel.result.errors.estado[0];
                         }
 
                     }

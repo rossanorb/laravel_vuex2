@@ -1,13 +1,18 @@
 import api from '../../api/apimovel';
 
-const state = {    
-    response: {},
+const state = {
+    imovel: {},
+    imoveis: {},
     action: 'list'
 };
 
 const getters = {
-    response: (state) => {
-        return state.response;
+    imovel: (state) => {
+        return state.imovel;
+    },
+
+    imoveis: (state) => {
+        return state.imoveis;
     },
 
     action: (state) => {
@@ -16,9 +21,13 @@ const getters = {
 };
 
 const mutations = {
-    setResponse(state, response){
-        state.response = response;
+    setImovel(state, response){
+        state.imovel = response;
     },
+
+    setImoveis: (state, response) => {
+        return state.imoveis = response;
+    },    
 
     setAction(state, action){
         state.action = action;
@@ -30,7 +39,7 @@ const actions = {
         api.create(form)
             .then(response => {
                 commit('setAction', 'create');
-                commit('setResponse', response);
+                commit('setImovel', response);
             });
     },
     list({ commit }, queryString) {
@@ -38,7 +47,7 @@ const actions = {
             .then(response => {
                 if (response.status) {  
                     commit('setAction', 'list');
-                    commit('setResponse', response);
+                    commit('setImoveis', response);
                 }
             });
     },

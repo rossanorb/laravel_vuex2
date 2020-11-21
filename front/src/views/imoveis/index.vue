@@ -25,7 +25,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(imovel, index) in this.response.result" :key="imovel.key">
+					<tr v-for="(imovel, index) in this.imoveis.result" :key="imovel.key">
 					<td>{{ imovel.email }}</td>
 					<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
 					<td>{{ contrato[index] }}</td>
@@ -68,9 +68,9 @@ export default {
 		this.list();		
 	},
     computed: mapState({
-        ...mapGetters('imovel', ['response','action']),
+        ...mapGetters('imovel', ['imoveis','action']),
         contrato: function(){
-            return this.response.result.map(item =>{
+            return this.imoveis.result.map(item =>{
 				if(item.contrato){
 					return 'Contratado';
 				}
@@ -108,9 +108,9 @@ export default {
 
 	},
     watch: {
-		response() {
+		imoveis() {
 			if(this.action == 'delete'){
-				if(this.response.status){
+				if(this.imoveis.status){
 					alert('Imóvel removido com sucesso!');
 					this.list();
 				}else{
