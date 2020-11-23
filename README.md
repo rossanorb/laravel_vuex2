@@ -16,7 +16,11 @@ Aplicação em Laravel 5.8 com vue/vuex
 - Para rodar testes:
 - Acessar container docker php e rodar o seguinte comando:
 
-./vendor/bin/phpunit --debug --verbose --color
+     ./vendor/bin/phpunit --debug --verbose --color
+
+- ou com o container rodando executar no terminal
+
+    docker exec test-app ./vendor/bin/phpunit --debug --verbose --color
 
 
 - Acessar aplicação pela url http://localhost
