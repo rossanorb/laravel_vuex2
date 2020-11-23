@@ -1,19 +1,27 @@
 <template>
-  <div id="dialog" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">        
-        <span class="close" @click="cancel()">&times;</span>
-      </div>
-      <div class="modal-body">
-        <h2 class="title">{{title ? title : 'Deseja realmente excluir ?'}}</h2>
-        <p class="text">{{description ? description : 'Após exclusão os dados não poderão mais ser recuperados'}}</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger" id="confirm" @click="confirm()">Confirmar</button>
-        <button type="button" class="btn btn-secondary" id="cancel" @click="cancel()">Cancelar</button>
-      </div>
-    </div>
-  </div>
+    <div id="dialog" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <button type="button" class="close"  @click="cancel()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="title">{{title ? title : 'Deseja realmente excluir ?'}}</h2>
+                    <p class="text">{{description ? description : 'Após exclusão os dados não poderão mais ser recuperados'}}</p>
+                </div>
+                <div class="modal-footer">                    
+                    <div class="col-xs-12 col-sm-4">
+                        <button type="button" class="btn btn-danger btn-md btn-block" id="confirm" @click="confirm()">Confirmar</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <button type="button" class="btn btn-secondary btn-md btn-block" id="cancel" @click="cancel()">Cancelar</button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>    
 </template>
 
 <script>
@@ -43,35 +51,31 @@ export default {
 
 <style scoped>
 .modal {
-  display: block; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Modal Content */
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 25%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s;
+.modal-content{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
 }
 
-/* Add Animation */
 @-webkit-keyframes animatetop {
   from {
     top: -300px;
@@ -94,7 +98,6 @@ export default {
   }
 }
 
-/* The Close Button */
 .close {
   color: gray;
   float: right;
