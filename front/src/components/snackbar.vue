@@ -1,27 +1,41 @@
+// Component snackbar - Rossano Bavaresco - rossanorb@gmail.com
 <template>
   <div id="snackbar" :class="snackbarClass">{{ msg }}</div>
 </template>
 
 <script>
 export default {
-  name: "Snackbar",  
+  name: "Snackbar",
   data() {
-    return {
-      snackbarClass: '',
-      msg: ''
-    };
+		return {
+			snackbarClass: "",
+			msg: "",
+		};
   },
   methods: {
-    show: function (param) {
-      this.msg = param.msg || '';
-      let bgcolor = param.bgcolor || '';
-      this.snackbarClass = `show ${bgcolor}`;
-
-      setTimeout(() => {
-        this.snackbarClass = "";
-      }, 3000);
-
-    },
+	timeout: function(ms){
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	},
+	setclass: function(param){
+		let bgcolor = ''
+		const hasBgcolor = Object.prototype.hasOwnProperty.call(param, 'bgcolor');
+		if(hasBgcolor){
+			bgcolor = param.bgcolor || '';
+		}		
+		this.snackbarClass = `show ${bgcolor}`;
+	},
+    show: async function(param){
+		this.msg = param.msg || '';
+		this.setclass(param);
+		await this.timeout(3000).then(()=>{
+			this.snackbarClass = "";
+		}).then(()=>{
+			const hasCallback = Object.prototype.hasOwnProperty.call(param, 'callback');
+			if(hasCallback && typeof param.callback === "function"){
+				param.callback();
+			}
+		});
+    }
   },
 };
 </script>

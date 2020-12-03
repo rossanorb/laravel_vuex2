@@ -136,15 +136,10 @@ export default {
         ...mapGetters('imovel', ['imovel','imoveis','action'])
     }),
     watch: {
-        imovel() {            
+        imovel() {
             if(this.action == 'create'){
                 if(this.imovel.status){
-                    this.$refs.msgComponent.show({
-                        show:true,
-                        msg: 'Imóvel cadastrado com sucesso!',
-                        bgcolor: 'success'
-                    })                    
-                    // this.$router.push('/');
+                    this.showMessage();
                 }else{
                     const hasErrors = Object.prototype.hasOwnProperty.call(this.imovel.result, 'errors');
                     if (hasErrors) {
@@ -187,7 +182,19 @@ export default {
             }
         }
     },
-    methods: {        
+    methods: {
+        showMessage: function() {
+            const router = this.$router;
+            this.$refs.msgComponent.show({
+                show:true,
+                msg: 'Imóvel cadastrado com sucesso!',
+                bgcolor: 'success',  // parametro opcional
+                callback: function(){ // parametro opcional
+                    router.push('/');
+                }
+            })            
+        },
+        
         clearErrors: function () {
             this.emailHasError = false;
             this.ruaHasError = false;
