@@ -93,15 +93,21 @@
 
             </div>
         </div>
+        <Snackbar ref='msgComponent' />
     </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import Snackbar from '@/components/snackbar';
 
 export default {
+	components: {
+		Snackbar
+	},
     data: function(){
         return {
+            showMsg:false,
             frontValidation: true, // habilita validação front-end
             emailHasError: false,
             ruaHasError: false,
@@ -133,8 +139,12 @@ export default {
         imovel() {            
             if(this.action == 'create'){
                 if(this.imovel.status){
-                    alert('Imóvel cadastrado com sucesso!');
-                    this.$router.push('/');
+                    this.$refs.msgComponent.show({
+                        show:true,
+                        msg: 'Imóvel cadastrado com sucesso!',
+                        bgcolor: 'success'
+                    })                    
+                    // this.$router.push('/');
                 }else{
                     const hasErrors = Object.prototype.hasOwnProperty.call(this.imovel.result, 'errors');
                     if (hasErrors) {
