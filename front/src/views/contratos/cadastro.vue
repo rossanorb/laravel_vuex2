@@ -64,15 +64,19 @@
                 </form>
             </div>
         </div>
+        <Snackbar ref='msgComponent' />
     </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import {mask} from 'vue-the-mask';
+import Snackbar from '@/components/snackbar';
 
 export default {
-    components: {},
+	components: {
+		Snackbar
+	},
     directives: {mask},
     data: function(){
         return {            
@@ -126,9 +130,8 @@ export default {
 
             if(this.action == 'create'){
                 
-                if(this.contrato.status){
-                    alert('Contrato realizado com sucesso!');
-                    this.$router.push('/');
+                if(this.contrato.status){                    
+                    this.showMessage();
                 }else{
                     const hasErrors = Object.prototype.hasOwnProperty.call(this.contrato.result, 'errors');
                     if (hasErrors) {
@@ -188,6 +191,16 @@ export default {
     
     methods: {
         ...mapActions('imovel', ['remove','filter']),
+        showMessage: function() {
+            const router = this.$router;
+            this.$refs.msgComponent.show({                
+                msg: 'Contrato realizado com sucesso!',
+                bgcolor: 'success',  // parametro opcional
+                callback: function(){ // parametro opcional
+                    router.push('/');
+                }
+            })            
+        },
         clearErrors: function () {
             this.emailHasError = false;            
             this.contratanteHasError = false;
