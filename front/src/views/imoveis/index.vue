@@ -38,6 +38,7 @@
 			</div>
 		</div>
 	</div>
+	<Snackbar ref='msgComponent' />
   </div>
 </template>
 
@@ -46,13 +47,15 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import iconTrash from '@/components/icons/trash';
 import caretdown from '@/components/icons/caretdown';
 import Dialog from '@/components/dialog';
+import Snackbar from '@/components/snackbar';
 
 export default {
 	name: "Imoveis",
 	components: {
 		iconTrash,
 		caretdown,
-		Dialog
+		Dialog,
+		Snackbar
 	},
     props: {
 		msg: String,
@@ -92,10 +95,16 @@ export default {
             const queryString = `?order=${sort}&by=${order}&limit`;
             this.$store.dispatch('imovel/filter', queryString);
 		},
+        showMessage: function(msg, bg) {            
+            this.$refs.msgComponent.show({
+                msg: msg,
+                bgcolor: bg,  // parametro opcional                
+            })            
+        },		
 
 		remove(){
 			this.$store.dispatch('imovel/remove', this.id);
-			this.list();
+			this.list();			
 		},
 		confirmDelete(imovel){
 			this.isVisibleDialog = true;
@@ -112,10 +121,10 @@ export default {
 		imovel() {
 			if(this.action == 'delete'){
 				if(this.imovel.status){
-					alert('Imóvel removido com sucesso!');
+					this.showMessage('Imóvel removido com sucesso!', 'success');					
 					this.list();
 				}else{
-					alert('Ocorreu um erro!');
+					this.showMessage('Ocorreu um erro!', 'danger');					
 				}
 			}
 		}

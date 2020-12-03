@@ -185,8 +185,7 @@ export default {
     methods: {
         showMessage: function() {
             const router = this.$router;
-            this.$refs.msgComponent.show({
-                show:true,
+            this.$refs.msgComponent.show({                
                 msg: 'Imóvel cadastrado com sucesso!',
                 bgcolor: 'success',  // parametro opcional
                 callback: function(){ // parametro opcional
