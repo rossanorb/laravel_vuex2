@@ -4,22 +4,20 @@
 
 <script>
 export default {
-  name: "Snackbar",
-  props: {
-    msg: { type: String }    
-  },
+  name: "Snackbar",  
   data() {
     return {
-      snackbarClass: "",
+      snackbarClass: '',
+      msg: ''
     };
   },
   methods: {
-    show: async function (param) {
+    show: function (param) {
       this.msg = param.msg || '';
       let bgcolor = param.bgcolor || '';
       this.snackbarClass = `show ${bgcolor}`;
 
-      await setTimeout(() => {
+      setTimeout(() => {
         this.snackbarClass = "";
       }, 3000);
 
