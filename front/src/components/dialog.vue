@@ -1,3 +1,4 @@
+// Component Dialog - Rossano Bavaresco - rossanorb@gmail.com
 <template>
     <div id="dialog" class="modal" tabindex="-1">
         <div class="modal-dialog">
@@ -27,8 +28,7 @@
 <script>
 export default {
   name: "Dialog",
-    props: {
-        visible: { type: Boolean },
+    props: {        
         title: { type: String},
         description: { type: String},
         callback: { type: Function },
