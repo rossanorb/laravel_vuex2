@@ -186,11 +186,11 @@ export default {
     },
 
     created() {
-		this.filter('?contrato=false');
+		this.list('?contrato=false');
     },
     
     methods: {
-        ...mapActions('imovel', ['remove','filter']),
+        ...mapActions('imovel', ['remove','list']),
         showMessage: function() {
             const router = this.$router;
             this.$refs.msgComponent.show({                

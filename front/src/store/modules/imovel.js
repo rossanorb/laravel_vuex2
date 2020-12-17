@@ -42,7 +42,8 @@ const actions = {
                 commit('setImovel', response);
             });
     },
-    list({ commit }, queryString) {
+    
+    list({ commit }, queryString) {        
         api.list(queryString)
             .then(response => {
                 if (response.status) {  
@@ -51,16 +52,7 @@ const actions = {
                 }
             });
     },
-    filter({ commit }, queryString) {
-        console.log(queryString);
-        api.list(queryString)
-            .then(response => {
-                if (response.status) {
-                    commit('setAction', 'list');
-                    commit('setImoveis', response);
-                }
-            });
-    },    
+
     remove({ commit }, id) {
         api.delete(id)
             .then(response => {

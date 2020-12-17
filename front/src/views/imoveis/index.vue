@@ -16,24 +16,24 @@
 			/>
 			<div class="table-responsive">	
 				<table class="table">
-				<thead class="thead-light">
-					<tr>
-					<th @click="sort('email')" scope="col">E-mail<span><caretdown class="sort" /></span></th>
-					<th scope="col">Endereço</th>
-					<th scope="col">Status</th>
-					<th scope="col">Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(imovel, index) in this.imoveis.result" :key="imovel.key">
-					<td>{{ imovel.email }}</td>
-					<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
-					<td>{{ contrato[index] }}</td>
-					<td>
-						<span class="btn-delete" v-on:click="confirmDelete(imovel)"> <iconTrash  /> </span>
-					</td>
-					</tr>
-				</tbody>
+					<thead class="thead-light">
+						<tr>
+						<th @click="sort('email')" scope="col">E-mail<span><caretdown class="sort" /></span></th>
+						<th scope="col">Endereço</th>
+						<th scope="col">Status</th>
+						<th scope="col">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(imovel, index) in this.imoveis.result" :key="imovel.key">
+						<td>{{ imovel.email }}</td>
+						<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
+						<td>{{ contrato[index] }}</td>
+						<td>
+							<span class="btn-delete" v-on:click="confirmDelete(imovel)"> <iconTrash  /> </span>
+						</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -62,6 +62,7 @@ export default {
 	},
 	data: function(){
 		return {
+			order: false,
 			isVisibleDialog: false,
 			callback: Function,
 			id: null
@@ -86,14 +87,14 @@ export default {
 		...mapActions('imovel', ['list']),
         sort(sort) {
             let order = '';
-            this.order = !this.order;
+			this.order = !this.order;			
             if (this.order) {
                 order = 'asc';
             } else {
                 order = 'desc';
             }
-            const queryString = `?order=${sort}&by=${order}&limit`;
-            this.$store.dispatch('imovel/filter', queryString);
+            const queryString = `?order=${sort}&by=${order}`;
+            this.$store.dispatch('imovel/list', queryString);
 		},
         showMessage: function(msg, bg) {            
             this.$refs.msgComponent.show({
