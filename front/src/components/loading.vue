@@ -36,7 +36,7 @@ export default {
 .overlay {
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1000; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
