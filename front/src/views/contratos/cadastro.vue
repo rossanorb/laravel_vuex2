@@ -186,14 +186,14 @@ export default {
     },
 
     created() {
-		this.list('?contrato=false');
+		this.propriedades('contrato=false');
     },
     
     methods: {
-        ...mapActions('imovel', ['remove','list']),
+        ...mapActions('imovel', ['remove','propriedades']),
         showMessage: function() {
             const router = this.$router;
-            this.$refs.msgComponent.show({                
+            this.$refs.msgComponent.show({
                 msg: 'Contrato realizado com sucesso!',
                 bgcolor: 'success',  // parametro opcional
                 callback: function(){ // parametro opcional
