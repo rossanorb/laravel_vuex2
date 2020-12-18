@@ -30,10 +30,18 @@ export default {
     async list(queryString = '') {
         try {
             return await axios.get(`${apiBaseUrl}/${endpoint}${queryString}`)
-                .then((response) => {
+                .then((response) => {                    
                     return {
                         status: true,
-                        result: response.data.result.data
+                        result: response.data.result.data,
+                        paginate: {
+                            current_page: response.data.result.current_page,
+                            last_page: response.data.result.last_page,
+                            per_page: response.data.result.per_page,
+                            total: response.data.result.total, 
+                            from: response.data.result.from,
+                            to: response.data.result.to,
+                        }
                     };
                 })
                 .catch(err => {

@@ -26,9 +26,9 @@ const mutations = {
     },
 
     setImoveis: (state, response) => {
-        return state.imoveis = response;
-    },    
-
+        state.imoveis = response;
+    },
+    
     setAction(state, action){
         state.action = action;
     },
@@ -39,16 +39,33 @@ const actions = {
         api.create(form)
             .then(response => {
                 commit('setAction', 'create');
-                commit('setImovel', response);
+                commit('setImovel', response);                
             });
     },
     
-    list({ commit }, queryString) {        
+    list({ commit, rootState  }, queryString) {
+        
+        let page = rootState.paginate.paginate.current_page;
+        let limit = rootState.paginate.paginate.per_page;
+
+        queryString = `?page=${page}&limit=${limit}&${queryString}`;
         api.list(queryString)
             .then(response => {
-                if (response.status) {  
+                if (response.status) {
                     commit('setAction', 'list');
                     commit('setImoveis', response);
+                    commit('paginate/refresh', response.paginate,  { root: true });
+                }
+            });
+    },
+
+    propriedades({ commit }, queryString) {
+        queryString = `?${queryString}`;
+        api.list(queryString)
+            .then(response => {
+                if (response.status) {
+                    commit('setAction', 'list');
+                    commit('setImoveis', response);                    
                 }
             });
     },

@@ -36,8 +36,9 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</div>		
 	</div>
+	<Paginate  />
 	<Snackbar ref='msgComponent' />
   </div>
 </template>
@@ -47,6 +48,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import iconTrash from '@/components/icons/trash';
 import caretdown from '@/components/icons/caretdown';
 import Dialog from '@/components/dialog';
+import Paginate from '@/components/paginate';
 import Snackbar from '@/components/snackbar';
 
 export default {
@@ -54,25 +56,28 @@ export default {
 	components: {
 		iconTrash,
 		caretdown,
+		Paginate,
 		Dialog,
-		Snackbar
+		Snackbar		
 	},
     props: {
 		msg: String,
 	},
 	data: function(){
-		return {
-			order: false,
+		return {			
+			order: false,			
 			isVisibleDialog: false,
 			callback: Function,
-			id: null
+			id: null,
+			queryString: ''
 		}
 	},
     created() {		
 		this.list();		
 	},
     computed: mapState({
-        ...mapGetters('imovel', ['imoveis','action', 'imovel']),
+		...mapGetters('imovel', ['imoveis','action', 'imovel']),		
+		...mapGetters('paginate', ['current_page']),
         contrato: function(){
             return this.imoveis.result.map(item =>{
 				if(item.contrato){
@@ -81,20 +86,20 @@ export default {
 				
 				return 'Não contratado';
 			})
-        }
+		}
 	}),
 	methods: {
 		...mapActions('imovel', ['list']),
         sort(sort) {
             let order = '';
-			this.order = !this.order;			
+			this.order = !this.order;
             if (this.order) {
                 order = 'asc';
             } else {
                 order = 'desc';
             }
-            const queryString = `?order=${sort}&by=${order}`;
-            this.$store.dispatch('imovel/list', queryString);
+            this.queryString = `order=${sort}&by=${order}`;
+			this.list(this.queryString);
 		},
         showMessage: function(msg, bg) {            
             this.$refs.msgComponent.show({
@@ -128,7 +133,12 @@ export default {
 					this.showMessage('Ocorreu um erro!', 'danger');					
 				}
 			}
-		}
+		},
+		current_page: function(newVal, oldVal){
+			if(newVal != oldVal){
+				this.list(this.queryString);
+			}
+		}		
 	}		
 };
 </script>
