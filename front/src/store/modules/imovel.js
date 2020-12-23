@@ -35,11 +35,16 @@ const mutations = {
 };
 
 const actions = {
-    create({ commit }, form) {
+    updatePage({dispatch}){
+        dispatch('paginate/changePage', 1, { root: true });
+    },
+
+    create({ commit, dispatch }, form) {
         api.create(form)
             .then(response => {
                 commit('setAction', 'create');
-                commit('setImovel', response);                
+                commit('setImovel', response);
+                dispatch('updatePage');
             });
     },
     
@@ -70,11 +75,12 @@ const actions = {
             });
     },
 
-    remove({ commit }, id) {
+    remove({ commit, dispatch }, id) {
         api.delete(id)
             .then(response => {
                 commit('setAction', 'delete');
                 commit('setImovel', response);
+                dispatch('updatePage');
         });
     }    
 };

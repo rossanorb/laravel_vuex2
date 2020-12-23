@@ -30,15 +30,18 @@ const mutations = {
 };
 
 const actions = {
-    create({ commit }, form) {
+    updatePage({dispatch}){
+        dispatch('paginate/changePage', 1, { root: true });
+    },
+
+    create({ commit, dispatch }, form) {
         api.create(form)
             .then(response => {
                 commit('setAction', 'create');                
                 commit('setContrato', response);
+                dispatch('updatePage');
             });
-    },
-
-
+    }
 };
 
 export default {
