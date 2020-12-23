@@ -53,7 +53,7 @@ export default {
 .modal {
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   padding-top: 100px;
   left: 0;
   top: 0;
