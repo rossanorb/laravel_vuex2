@@ -6,8 +6,7 @@ const state = {
         total: 0,
         from: 0,
         to: 0
-    },
-    current_page: 1
+    }
 }
 
 const getters = {
@@ -16,7 +15,7 @@ const getters = {
     },
 
     current_page: (state) => {
-        return state.current_page;        
+        return state.paginate.current_page;        
     }
 }
 
@@ -26,7 +25,7 @@ const mutations = {
     },
 
     changePage(state, current_page) {
-        state.current_page = current_page;
+        state.paginate.current_page = current_page;
     }
 
 }
@@ -35,9 +34,8 @@ const actions = {
 
     changePage({ commit }, current_page) {
         let paginate = state.paginate;
-        paginate.current_page = current_page;        
+        paginate.current_page = current_page;
         commit('refresh', paginate);
-        commit('changePage', current_page);        
     }
 
 }
