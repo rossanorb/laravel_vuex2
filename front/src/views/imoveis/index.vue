@@ -72,9 +72,12 @@ export default {
 			queryString: ''
 		}
 	},
+
     created() {		
-		this.list();		
+		this.$store.state.imovel.imoveis = {}
+		this.list();
 	},
+
     computed: mapState({
 		...mapGetters('imovel', ['imoveis','action', 'imovel']),		
 		...mapGetters('paginate', ['current_page']),
