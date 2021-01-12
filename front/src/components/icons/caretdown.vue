@@ -13,10 +13,6 @@ export default {
         };
     },
 
-    created() {
-        console.log(this.sort);
-    },
-
     methods: {
 
         change(param) {
