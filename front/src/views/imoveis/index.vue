@@ -35,10 +35,10 @@
 						</tr>
 					</tbody>
 				</table>
+				<Paginate  />
 			</div>
 		</div>		
-	</div>
-	<Paginate  />
+	</div>	
 	<Snackbar ref='msgComponent' />
   </div>
 </template>
