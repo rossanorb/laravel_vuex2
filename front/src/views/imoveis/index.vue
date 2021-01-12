@@ -18,10 +18,10 @@
 				<table class="table">
 					<thead class="thead-light">
 						<tr>
-						<th @click="sort('email')" scope="col">E-mail<span><caretdown class="sort" /></span></th>
-						<th scope="col">Endereço</th>
-						<th scope="col">Status</th>
-						<th scope="col">Ações</th>
+							<th  @click="sort('email')">E-mail<span><caretdown ref="sorter_email" class="sort" /></span></th>
+							<th >Endereço</th>
+							<th >Status</th>
+							<th >Ações</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,6 +101,11 @@ export default {
             } else {
                 order = 'desc';
             }
+
+			switch (sort) {
+            case 'email': this.$refs.sorter_email.change(order); break;
+			}
+
             this.queryString = `order=${sort}&by=${order}`;
 			this.list(this.queryString);
 		},
@@ -155,5 +160,16 @@ export default {
 		margin-left: 10px;
 	}
 
-
+	th:nth-child(1) {
+		width: 30%;
+	}
+	th:nth-child(2) {
+		width: 40%;
+	}
+	th:nth-child(3) {
+		width: 15%;
+	}
+	th:nth-child(4) {
+		width: 5%;
+	}	
 </style>
