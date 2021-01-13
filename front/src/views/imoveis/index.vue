@@ -10,14 +10,15 @@
 		<div class="col-sm-12">			
 			<Dialog 
 				v-if="isVisibleDialog" 
-				@show=closeDialog				
-				:callback=this.callback
+				@show="closeDialog"
+				:callback="this.callback"
 				:title="'Deseja excluir o imóvel ?'"				
 			/>
 			<Table 
 				:data="this.table" 
-				:items="this.imoveis.result"
-				@confirmDelete=confirmDelete
+				:items="this.imoveis.result"				
+				@list="list"
+				@confirmDelete="confirmDelete"								
 			/>
 		</div>		
 	</div>	
@@ -27,19 +28,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-// import iconTrash from '@/components/icons/trash';
-// import caretdown from '@/components/icons/caretdown';
 import Dialog from '@/components/dialog';
-// import Paginate from '@/components/paginate';
 import Snackbar from '@/components/snackbar';
 import Table from '@/components/table';
 
 export default {
 	name: "Imoveis",	
 	components: {
-		// iconTrash,
-		// caretdown,
-		// Paginate,
 		Dialog,
 		Table,
 		Snackbar		
@@ -52,23 +47,23 @@ export default {
 			table: {
 				columns: [
 					{
+						name: 'E-mail',
+						mapping: 'email',
+						sort: true
+					},
+					{
 						name: 'Cidade',
 						mapping: 'cidade',
-						sort: true
+						sort: false
 					},
 					{
 						name: 'Bairro',
 						mapping: 'bairro',
 						sort: false
-					},
-					{
-						name: 'E-mail',
-						mapping: 'email',
-						sort: false
 					}
 				]				
 			},
-			order: false,			
+			order: false,
 			isVisibleDialog: false,
 			callback: Function,
 			id: null,
@@ -96,26 +91,10 @@ export default {
 	}),
 	methods: {
 		...mapActions('imovel', ['list']),
-        sort(sort) {
-            let order = '';
-			this.order = !this.order;
-            if (this.order) {
-                order = 'asc';
-            } else {
-                order = 'desc';
-            }
-
-			switch (sort) {
-            case 'email': this.$refs.sorter_email.change(order); break;
-			}
-
-            this.queryString = `order=${sort}&by=${order}`;
-			this.list(this.queryString);
-		},
         showMessage: function(msg, bg) {            
             this.$refs.msgComponent.show({
                 msg: msg,
-                bgcolor: bg,  // parametro opcional                
+                bgcolor: bg  // parametro opcional                
             })            
         },		
 
@@ -154,24 +133,4 @@ export default {
 </script>
 
 <style scoped>
-    .btn-delete{
-        cursor: pointer;
-        color: red;
-    }
-	span .sort{
-		margin-left: 10px;
-	}
-
-	th:nth-child(1) {
-		width: 30%;
-	}
-	th:nth-child(2) {
-		width: 40%;
-	}
-	th:nth-child(3) {
-		width: 15%;
-	}
-	th:nth-child(4) {
-		width: 5%;
-	}	
 </style>

@@ -1,11 +1,12 @@
 <template>
     <div>
-		<div class="table-responsive">		
+		<div class="table-responsive">			
 			<table class="table">
 				<thead class="thead-light">
 					<tr>						
 						<th  v-for="(column, index) in data.columns" :key="index" @click="sort(`${column.mapping}`, column.sort)" >
 						{{column.name}}
+						<span :id="`${column.mapping}`"><caretdown :ref="`${column.mapping}`" class="sort" /></span>
 						</th>
 						<th >Ações</th>
 					</tr>
@@ -28,6 +29,7 @@
 
 <script>
 import iconTrash from '@/components/icons/trash';
+import caretdown from '@/components/icons/caretdown';
 import Paginate from '@/components/paginate';
 
 export default {
@@ -43,15 +45,29 @@ export default {
 	},
 
 	components: {
-		iconTrash,		
+		iconTrash,
+		caretdown,
 		Paginate
 	},
 
 	methods: {
 		sort(name, sort){
 			name = name.toLowerCase()
-			console.log(name);
-			console.log(sort);
+
+			if(sort){
+				let order = '';
+				this.order = !this.order;
+				if (this.order) {
+					order = 'asc';
+				} else {
+					order = 'desc';
+				}
+
+				this.$refs.[name][0].change(order);
+				this.$parent.queryString = `order=${name}&by=${order}`;
+				this.$emit("list", this.$root.queryString);			
+				
+			}
 		},
 
 		confirmDelete(item){
