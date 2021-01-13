@@ -65,7 +65,7 @@ export default {
 
 				this.$refs.[name][0].change(order);
 				this.$parent.queryString = `order=${name}&by=${order}`;
-				this.$emit("list", this.$root.queryString);			
+				this.$emit("list", this.$parent.queryString);			
 				
 			}
 		},

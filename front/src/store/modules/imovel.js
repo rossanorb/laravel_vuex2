@@ -49,6 +49,7 @@ const actions = {
     },
     
     list({ commit, rootState  }, queryString) {
+        console.log(queryString);
         
         let page = rootState.paginate.paginate.current_page;
         let limit = rootState.paginate.paginate.per_page;
