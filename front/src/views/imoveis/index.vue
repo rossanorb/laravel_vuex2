@@ -10,7 +10,7 @@
 		<div class="col-sm-12">			
 			<Dialog 
 				v-if="isVisibleDialog" 
-				@show="closeDialog"
+				@show="showDialog"
 				:callback="this.callback"
 				:title="'Deseja excluir o imóvel ?'"				
 			/>
@@ -101,14 +101,14 @@ export default {
 			this.$store.dispatch('imovel/remove', this.id);
 		},
 
-		confirmDelete(imovel){
-			this.isVisibleDialog = true;
+		confirmDelete(imovel){			
+			this.showDialog(true);
 			this.id = imovel.id;
 			this.callback = this.remove;
 		},
 		
-		closeDialog(arg){
-			this.isVisibleDialog = arg;
+		showDialog(state){
+			this.isVisibleDialog = state;
 		}
 	
 
