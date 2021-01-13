@@ -109,16 +109,14 @@ export default {
             this.queryString = `order=${sort}&by=${order}`;
 			this.list(this.queryString);
 		},
-        showMessage: function(msg, bg) {            
+        showMessage: function(msg, bg) {
             this.$refs.msgComponent.show({
                 msg: msg,
                 bgcolor: bg,  // parametro opcional                
             })            
-        },		
-
+        },
 		remove(){
 			this.$store.dispatch('imovel/remove', this.id);
-			this.list();			
 		},
 		confirmDelete(imovel){
 			this.isVisibleDialog = true;
