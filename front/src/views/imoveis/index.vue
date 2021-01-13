@@ -15,9 +15,8 @@
 				:title="'Deseja excluir o imóvel ?'"				
 			/>
 			<Table 
-				:columns="this.columns" 
-				:items="this.imoveis.result" 
-				:fields="this.fields"
+				:data="this.table" 
+				:items="this.imoveis.result"
 			/>
 		</div>		
 	</div>	
@@ -49,22 +48,25 @@ export default {
 	},
 	data: function(){
 		return {
-
-			columns: [
-				{
-					name: 'Cidade',
-					sort: true
-				},
-				{
-					name: 'Bairro',
-					sort: false
-				},
-				{
-					name: 'E-mail',
-					sort: false
-				}
-			],
-			fields: ['cidade','bairro', 'email'],
+			table: {
+				columns: [
+					{
+						name: 'Cidade',
+						mapping: 'cidade',
+						sort: true
+					},
+					{
+						name: 'Bairro',
+						mapping: 'bairro',
+						sort: false
+					},
+					{
+						name: 'E-mail',
+						mapping: 'email',
+						sort: false
+					}
+				]				
+			},
 			order: false,			
 			isVisibleDialog: false,
 			callback: Function,
