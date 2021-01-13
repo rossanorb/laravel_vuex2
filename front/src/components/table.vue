@@ -1,16 +1,20 @@
 <template>
     <div>
-		<div class="table-responsive">
+		<div class="table-responsive">		
 			<table class="table">
 				<thead class="thead-light">
 					<tr>						
 						<th  v-for="(column, index) in this.columns" :key="index" @click="sort(`${column.name}`, column.sort)" >
 						{{column.name}}
-						</th>						
+						</th>
 					</tr>
 				</thead>				
 				<tbody>
-					<tr v-for="(tr, index) in this.list" :key="index" v-html="tr"></tr>
+					<tr v-for="(item, index) in this.items" :key="index">
+						<td v-for="(header, index) in headers" :key="index">
+							{{item[header]}}
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<Paginate />
@@ -29,13 +33,13 @@ export default {
 
     props: {        
         columns: { type: Array},
-		items: { type: Array }
+		items: { type: Array },
+		headers: { type: Array }
     },
 
 	data: function(){
 		return {
-			list: [],
-			body: `<td> cidade </td><td> bairro</td>`
+			list: []
 		}
 	},
 
@@ -45,38 +49,13 @@ export default {
 		Paginate
 	},
 
-	computed: mapState({}),
+	created() {
 
-	watch: {
-		items(){
-			this.doList();
-		}
 	},
 
-	methods: {
-		doList: function(){
-			let columns = [];
-			
-			for(let col of this.columns){
-				columns.push(col.name.toLowerCase());
-			}			
-		
-			if(this.items){
-				for(let item of this.items){
-					let keys = Object.keys(item);
-					let body = this.body;	
-					
-					for(let k of keys) {
-						if(columns.includes(k)){
-							let pattern = `${k}`;
-							body = body.replace(pattern, item[k]);							
-						}						
-					}
+	computed: mapState({}),
 
-					this.list.push(body);
-				}
-			}
-		},
+	methods: {
 		sort(name, sort){
 			name = name.toLowerCase()
 			console.log(name);

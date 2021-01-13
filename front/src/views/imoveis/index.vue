@@ -17,6 +17,8 @@
 			<Table 
 				:columns="this.columns" 
 				:items="this.imoveis.result" 
+				:headers="this.headers"
+				:data="this.table"
 			/>
 		</div>		
 	</div>	
@@ -48,6 +50,7 @@ export default {
 	},
 	data: function(){
 		return {
+
 			columns: [
 				{
 					name: 'Cidade',
@@ -56,8 +59,13 @@ export default {
 				{
 					name: 'Bairro',
 					sort: false
-				}
+				},
+				{
+					name: 'E-mail',
+					sort: false
+				}				
 			],
+			headers: ['cidade','bairro', 'email'],
 			order: false,			
 			isVisibleDialog: false,
 			callback: Function,
