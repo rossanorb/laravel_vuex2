@@ -54,9 +54,8 @@ export default {
 			console.log(sort);
 		},
 
-		confirmDelete(item){			
-			this.id = item.id;
-			console.log(item.id);
+		confirmDelete(item){
+			this.$emit("confirmDelete", item);
 		}
 		
 	}	

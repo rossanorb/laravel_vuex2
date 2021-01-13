@@ -17,6 +17,7 @@
 			<Table 
 				:data="this.table" 
 				:items="this.imoveis.result"
+				@confirmDelete=confirmDelete
 			/>
 		</div>		
 	</div>	
