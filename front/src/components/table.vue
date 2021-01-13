@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 import iconTrash from '@/components/icons/trash';
 import caretdown from '@/components/icons/caretdown';
 import Paginate from '@/components/paginate';
@@ -49,6 +50,10 @@ export default {
 		caretdown,
 		Paginate
 	},
+
+    computed: mapState({
+		...mapGetters('paginate', ['current_page']) 
+	}),	
 
 	methods: {
 		sort(name, sort){
@@ -74,7 +79,15 @@ export default {
 			this.$emit("confirmDelete", item);
 		}
 		
-	}	
+	},
+
+    watch: {
+		current_page: function(newVal, oldVal){
+			if(newVal != oldVal){
+				this.$emit("list", this.$parent.queryString);
+			}
+		}		
+	}		
 }	
     
 </script>
