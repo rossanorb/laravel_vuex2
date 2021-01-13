@@ -14,29 +14,10 @@
 				:callback=this.callback
 				:title="'Deseja excluir o imóvel ?'"				
 			/>
-			<div class="table-responsive">	
-				<table class="table">
-					<thead class="thead-light">
-						<tr>
-							<th  @click="sort('email')">E-mail<span><caretdown ref="sorter_email" class="sort" /></span></th>
-							<th >Endereço</th>
-							<th >Status</th>
-							<th >Ações</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="(imovel, index) in this.imoveis.result" :key="imovel.key">
-						<td>{{ imovel.email }}</td>
-						<td>{{ imovel.rua }}, {{ imovel.bairro }}, {{ imovel.cidade }}, {{ imovel.estado }}</td>
-						<td>{{ contrato[index] }}</td>
-						<td>
-							<span class="btn-delete" v-on:click="confirmDelete(imovel)"> <iconTrash  /> </span>
-						</td>
-						</tr>
-					</tbody>
-				</table>
-				<Paginate  />
-			</div>
+			<Table 
+				:columns="this.columns" 
+				:items="this.imoveis.result" 
+			/>
 		</div>		
 	</div>	
 	<Snackbar ref='msgComponent' />
@@ -45,26 +26,38 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import iconTrash from '@/components/icons/trash';
-import caretdown from '@/components/icons/caretdown';
+// import iconTrash from '@/components/icons/trash';
+// import caretdown from '@/components/icons/caretdown';
 import Dialog from '@/components/dialog';
-import Paginate from '@/components/paginate';
+// import Paginate from '@/components/paginate';
 import Snackbar from '@/components/snackbar';
+import Table from '@/components/table';
 
 export default {
-	name: "Imoveis",
+	name: "Imoveis",	
 	components: {
-		iconTrash,
-		caretdown,
-		Paginate,
+		// iconTrash,
+		// caretdown,
+		// Paginate,
 		Dialog,
+		Table,
 		Snackbar		
 	},
     props: {
 		msg: String,
 	},
 	data: function(){
-		return {			
+		return {
+			columns: [
+				{
+					name: 'Cidade',
+					sort: true
+				},
+				{
+					name: 'Bairro',
+					sort: false
+				}
+			],
 			order: false,			
 			isVisibleDialog: false,
 			callback: Function,
@@ -74,7 +67,7 @@ export default {
 	},
 
     created() {		
-		this.$store.state.imovel.imoveis = {}
+		this.$store.state.imovel.imoveis = {};		
 		this.list();
 	},
 
