@@ -121,7 +121,6 @@ export default {
 
 		remove(){
 			this.$store.dispatch('imovel/remove', this.id);
-			this.list();			
 		},
 		confirmDelete(imovel){
 			this.isVisibleDialog = true;
