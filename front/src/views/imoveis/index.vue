@@ -60,6 +60,11 @@ export default {
 						name: 'Bairro',
 						mapping: 'bairro',
 						sort: false
+					},
+					{
+						name: 'Rua',
+						mapping: 'rua',
+						sort: false
 					}
 				]				
 			},

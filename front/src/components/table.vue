@@ -100,17 +100,4 @@ export default {
 	span .sort{
 		margin-left: 10px;
 	}
-
-	th:nth-child(1) {
-		width: 30%;
-	}
-	th:nth-child(2) {
-		width: 40%;
-	}
-	th:nth-child(3) {
-		width: 15%;
-	}
-	th:nth-child(4) {
-		width: 5%;
-	}	
 </style>
