@@ -17,8 +17,7 @@
 			<Table 
 				:columns="this.columns" 
 				:items="this.imoveis.result" 
-				:headers="this.headers"
-				:data="this.table"
+				:fields="this.fields"
 			/>
 		</div>		
 	</div>	
@@ -63,9 +62,9 @@ export default {
 				{
 					name: 'E-mail',
 					sort: false
-				}				
+				}
 			],
-			headers: ['cidade','bairro', 'email'],
+			fields: ['cidade','bairro', 'email'],
 			order: false,			
 			isVisibleDialog: false,
 			callback: Function,

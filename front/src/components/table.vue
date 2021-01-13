@@ -4,14 +4,14 @@
 			<table class="table">
 				<thead class="thead-light">
 					<tr>						
-						<th  v-for="(column, index) in this.columns" :key="index" @click="sort(`${column.name}`, column.sort)" >
+						<th  v-for="(column, index) in columns" :key="index" @click="sort(`${column.name}`, column.sort)" >
 						{{column.name}}
 						</th>
 					</tr>
 				</thead>				
 				<tbody>
 					<tr v-for="(item, index) in this.items" :key="index">
-						<td v-for="(header, index) in headers" :key="index">
+						<td v-for="(header, index) in fields" :key="index">
 							{{item[header]}}
 						</td>
 					</tr>
@@ -34,7 +34,7 @@ export default {
     props: {        
         columns: { type: Array},
 		items: { type: Array },
-		headers: { type: Array }
+		fields: { type: Array }
     },
 
 	data: function(){
