@@ -10,8 +10,8 @@
 		<div class="col-sm-12">			
 			<Dialog 
 				v-if="isVisibleDialog" 
-				@show=closeDialog				
-				:callback=this.callback
+				@show="showDialog"
+				:callback="this.callback"
 				:title="'Deseja excluir o imóvel ?'"				
 			/>
 			<div class="table-responsive">	
@@ -112,18 +112,18 @@ export default {
         showMessage: function(msg, bg) {
             this.$refs.msgComponent.show({
                 msg: msg,
-                bgcolor: bg,  // parametro opcional                
+                bgcolor: bg  // parametro opcional                
             })            
         },
 		remove(){
 			this.$store.dispatch('imovel/remove', this.id);
 		},
 		confirmDelete(imovel){
-			this.isVisibleDialog = true;
+			this.showDialog(true);
 			this.id = imovel.id;
 			this.callback = this.remove;
 		},
-		closeDialog(arg){
+		showDialog(arg){
 			this.isVisibleDialog = arg;
 		}
 	
