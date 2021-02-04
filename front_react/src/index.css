@@ -1,0 +1,17 @@
+#wrapper header {
+  padding: .5rem;
+  margin-right: 0;
+  margin-left: 0;
+  border-width: .2rem;
+  background-color: #8db4c8;
+}
+
+#wrapper header ul a {
+  color: white;
+  border: solid 1px #8db4c8;
+}
+
+#wrapper header ul a:hover {
+  color: white;
+  border: solid 1px white;
+}
