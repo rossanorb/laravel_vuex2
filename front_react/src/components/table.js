@@ -1,5 +1,10 @@
-function showAction(show, type){
-    
+function showAction(actions, type){    
+    let show = false;
+
+    if(!!actions && actions.length ){
+        show = true;
+    }
+
     if(show){
         if(type === 'th'){
             return <th>Ações</th>
@@ -13,7 +18,7 @@ function showAction(show, type){
                     <span className="btn-delete">
                         delete
                     </span>
-                </td>                
+                </td>
             )
         }
     }    
@@ -32,7 +37,7 @@ const ImoveisList = (props) => {
                         {table.columns.map(column => (
                             <th key={column.name} >{column.name}</th>
                         ))}
-                        {showAction(table.show_action_column, 'th')}
+                        {showAction(table.actions, 'th')}
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +46,7 @@ const ImoveisList = (props) => {
                         {table.columns.map(column => (
                             <td key={column.name} > { item[column.mapping] } </td>
                         ))}     
-                        {showAction(table.show_action_column, 'td')}
+                        {showAction(table.actions, 'td')}
                     </tr>
                     ))}
                 </tbody>

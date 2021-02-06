@@ -11,8 +11,8 @@ export default class Imoveis extends Component {
         this.state = {
             data: '',
             errors: '',
-            table: {
-                show_action_column: true,
+            table: {                
+                actions: ['delete','edit'],
                 columns: [
                     {
                         name: 'E-mail',
