@@ -12,7 +12,7 @@ export default class Imoveis extends Component {
             data: '',
             errors: '',
             table: {                
-                actions: ['delete','edit'],
+                actions: ['delete'],
                 columns: [
                     {
                         name: 'E-mail',
@@ -36,6 +36,10 @@ export default class Imoveis extends Component {
     
     componentDidMount() {
         this.list()
+    }
+
+    confirmDelete() {
+        console.log('confirmDelete')
     }
 
     async list() {

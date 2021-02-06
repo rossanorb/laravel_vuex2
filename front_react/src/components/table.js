@@ -1,5 +1,7 @@
-function showAction(actions, type){    
-    let show = false;
+import TrashIcon from '../components/icons/trash';
+
+function showAction(actions, type){
+    let show = false;    
 
     if(!!actions && actions.length ){
         show = true;
@@ -9,15 +11,12 @@ function showAction(actions, type){
         if(type === 'th'){
             return <th>Ações</th>
         }
-    }
-
-    if(show){
+    
         if(type === 'td'){
             return (
                 <td>
-                    <span className="btn-delete">
-                        delete
-                    </span>
+                    { !!actions.includes('delete') && <span className="btn-delete"> <TrashIcon /> </span>}
+                    { !!actions.includes('edit') && <span className="btn-edit"> editar </span>}
                 </td>
             )
         }

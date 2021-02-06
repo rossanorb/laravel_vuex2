@@ -15,3 +15,21 @@
   color: white;
   border: solid 1px white;
 }
+
+#wrapper main .container table td span {
+  cursor: pointer;
+}
+
+#wrapper main .container table td .btn-delete {
+  color:red;  
+}
+
+#wrapper main .container table th:last-child{
+  width: 100px;
+}
+
+#wrapper main .container table td:last-child,
+#wrapper main .container table th:last-child
+{
+  text-align: center;
+}
