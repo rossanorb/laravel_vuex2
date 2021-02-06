@@ -12,7 +12,7 @@ export default class Imoveis extends Component {
             data: '',
             errors: '',
             table: {                
-                actions: ['delete'],
+                actions: [],
                 columns: [
                     {
                         name: 'E-mail',

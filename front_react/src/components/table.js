@@ -1,9 +1,10 @@
 import BtnDelete from './contents/BtnDelete';
 
-function showAction(actions, type, props = null, item = {}){
-    let show = false;    
+function showAction(type, props = null, item = {}){
+    let show = false;
+    let {table} = props;
 
-    if(!!actions && actions.length ){
+    if(!!table.actions && table.actions.length ){
         show = true;
     }
 
@@ -15,7 +16,7 @@ function showAction(actions, type, props = null, item = {}){
         if(type === 'td'){
             return (
                 <td>
-                    { !!actions.includes('delete') && <BtnDelete id={item.id} confirmDelete={props.confirmDelete} />}                    
+                    { !!table.actions.includes('delete') && <BtnDelete id={item.id} confirmDelete={props.confirmDelete} />}                    
                 </td>
             )
         }
@@ -35,7 +36,7 @@ const ImoveisList = (props) => {
                         {table.columns.map(column => (
                             <th key={column.name} >{column.name}</th>
                         ))}
-                        {showAction(table.actions, 'th')}
+                        {showAction('th', props)}
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +45,7 @@ const ImoveisList = (props) => {
                         {table.columns.map(column => (
                             <td key={column.name} > { item[column.mapping] } </td>
                         ))}     
-                        {showAction(table.actions, 'td', props, item)}
+                        {showAction('td', props, item)}
                     </tr>
                     ))}
                 </tbody>
