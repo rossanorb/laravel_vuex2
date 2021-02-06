@@ -38,8 +38,8 @@ export default class Imoveis extends Component {
         this.list()
     }
 
-    confirmDelete() {
-        console.log('confirmDelete')
+    confirmDelete(id) {
+        console.log('confirmDelete => '+ id)
     }
 
     async list() {
@@ -68,6 +68,7 @@ export default class Imoveis extends Component {
                         { items && <ImoveisList 
                                     items={items}
                                     table={table}
+                                    confirmDelete={ this.confirmDelete }
                                 /> 
                         }
                         </div>

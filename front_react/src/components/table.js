@@ -1,6 +1,6 @@
-import TrashIcon from '../components/icons/trash';
+import BtnDelete from './contents/BtnDelete';
 
-function showAction(actions, type){
+function showAction(actions, type, props = null, item = {}){
     let show = false;    
 
     if(!!actions && actions.length ){
@@ -15,8 +15,7 @@ function showAction(actions, type){
         if(type === 'td'){
             return (
                 <td>
-                    { !!actions.includes('delete') && <span className="btn-delete"> <TrashIcon /> </span>}
-                    { !!actions.includes('edit') && <span className="btn-edit"> editar </span>}
+                    { !!actions.includes('delete') && <BtnDelete id={item.id} confirmDelete={props.confirmDelete} />}                    
                 </td>
             )
         }
@@ -26,7 +25,7 @@ function showAction(actions, type){
 }
 
 const ImoveisList = (props) => {
-    const {items, table } = props;
+    const {items, table } = props;    
     
     return (
         <div>
@@ -45,7 +44,7 @@ const ImoveisList = (props) => {
                         {table.columns.map(column => (
                             <td key={column.name} > { item[column.mapping] } </td>
                         ))}     
-                        {showAction(table.actions, 'td')}
+                        {showAction(table.actions, 'td', props, item)}
                     </tr>
                     ))}
                 </tbody>
