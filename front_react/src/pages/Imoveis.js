@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import ImoveisList from '../components/table';
+import ImoveisList from '../components/Table';
 import api from '../api/apiImovel';
 
 export default class Imoveis extends Component {

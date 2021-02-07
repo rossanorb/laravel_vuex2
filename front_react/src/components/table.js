@@ -26,7 +26,7 @@ function showAction(type, props = null, item = {}){
 }
 
 const Table = (props) => {
-    const {items, table } = props;    
+    const {items, table } = props;
     
     return (
         <div>
