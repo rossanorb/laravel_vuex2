@@ -25,7 +25,7 @@ function showAction(type, props = null, item = {}){
     return null;
 }
 
-const ImoveisList = (props) => {
+const Table = (props) => {
     const {items, table } = props;    
     
     return (
@@ -54,4 +54,4 @@ const ImoveisList = (props) => {
     )
 }
 
-export default ImoveisList;
+export default Table;
