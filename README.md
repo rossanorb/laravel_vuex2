@@ -1,5 +1,7 @@
 ##### Teste Full Stack Laravel
-Aplicação em Laravel 5.8 com vue/vuex
+Aplicação em Laravel 5.8 com Swoole
+vue 2/vuex
+
 
 ##### Requisitos
 - PHP 7.1+
@@ -11,7 +13,9 @@ Aplicação em Laravel 5.8 com vue/vuex
 - Aplicação backend está na pasta api
 - Aplicação front-end (SPA) está na pasta front
 
-- Rodar php artisan migrate no container test-app
+- Rodar Migrations:
+
+    docker exec app php artisan migrate
 
 - Para rodar testes:
 - Acessar container docker php e rodar o seguinte comando:
@@ -20,7 +24,7 @@ Aplicação em Laravel 5.8 com vue/vuex
 
 - ou com o container rodando executar no terminal
 
-    docker exec test-app ./vendor/bin/phpunit --debug --verbose --color
+    docker exec app ./vendor/bin/phpunit --debug --verbose --color
 
 
 - Acessar aplicação pela url http://localhost
