@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ImoveisList from '../components/Table';
 import api from '../api/apiImovel';
+import Dialog from '../components/Dialog';
 
 export default class Imoveis extends Component {
     constructor(props){
@@ -38,8 +39,13 @@ export default class Imoveis extends Component {
         this.list()
     }
 
-    confirmDelete(id) {
+    confirmDelete = (id) => {
         console.log('confirmDelete => '+ id)
+        this.dialog.show()
+    }
+
+    remove() {
+        console.log('removed')
     }
 
     async list() {
@@ -54,6 +60,10 @@ export default class Imoveis extends Component {
         
         return (
             <div className="container">
+                <Dialog                    
+                    callback={this.remove}
+                    onRef={ref => (this.dialog = ref)}
+                 />
                 <div className="py-5 text-center">
                     <h2>Imóveis</h2>
                 </div>
