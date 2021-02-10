@@ -43,7 +43,7 @@ export default class Imoveis extends Component {
 
     confirmDelete = (id) => {
         console.log('confirmDelete => '+ id)
-        this.setState({id: 12})
+        this.setState({id: id})
         this.dialog.show()
     }
 
