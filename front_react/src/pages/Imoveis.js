@@ -10,6 +10,7 @@ export default class Imoveis extends Component {
     constructor(props){
         super(props);
         this.state = {
+            id: 0,
             data: '',
             errors: '',
             table: {
@@ -36,16 +37,22 @@ export default class Imoveis extends Component {
     }
     
     componentDidMount() {
+        console.log('id ' + this.state.id)
         this.list()
     }
 
     confirmDelete = (id) => {
         console.log('confirmDelete => '+ id)
+        this.setState({id: 12})
         this.dialog.show()
     }
 
-    remove() {
-        console.log('removed')
+    remove = () => {
+        try {
+            console.log('removed ' + this.state.id)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async list() {

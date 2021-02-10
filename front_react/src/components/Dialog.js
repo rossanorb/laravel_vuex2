@@ -21,10 +21,16 @@ export default class Dialog extends Component {
         })
     }    
 
-    cancel = () => {
-        this.setState({
-            show: 'none'
-        })
+    cancel = (event) => {
+        const classesName = ['component-dialog modal'];
+        const elementType = event.target.tagName === 'BUTTON' || event.target.tagName === 'SPAN';
+
+        if(elementType || classesName.includes(event.target.className)) {
+            this.setState({
+                show: 'none'
+            })
+        }
+
     }    
 
     callback = () => {
@@ -33,13 +39,13 @@ export default class Dialog extends Component {
 
     render() {        
         return (
-            <div id="dialog" style={{
+            <div id="dialog" onClick={this.cancel} style={{
                 display: this.state.show
             }} className="component-dialog modal" tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="close" aria-label="close">
+                            <button type="button" onClick={this.cancel} className="close" aria-label="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
