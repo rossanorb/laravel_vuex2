@@ -115,3 +115,97 @@
   border-top: none;
   justify-content: center;
 }
+
+
+/*****************************************
+ Componente Toastr
+ *****************************************/
+#toastr {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#toastr.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#toastr.show.primary {
+    background-color: rgb(42, 92, 231);
+}
+
+#toastr.show.secondary {
+    background-color: rgb(61, 42, 231);
+}
+
+#toastr.show.danger {
+    background-color: rgb(204, 29, 29);
+}
+
+#toastr.show.success {
+    background-color: rgb(55, 131, 48);
+}
+
+#toastr.show.warning {
+    background-color: rgb(235, 131, 34);
+}
+
+@keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+  
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+  
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+  
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+  
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ImoveisList from '../components/Table';
 import api from '../api/apiImovel';
 import Dialog from '../components/Dialog';
+import Toastr from '../components/Toastr';
 
 export default class Imoveis extends Component {
     constructor(props){
@@ -40,41 +41,53 @@ export default class Imoveis extends Component {
         this.list()
     }
 
-    confirmDelete = (id) => {
-        console.log('confirmDelete => '+ id)
+    confirmDelete = (id) => {        
         this.setState({id: id})
         this.dialog.show()
+    }
+
+    showMessage = async (msg, bg) => {
+        await this.toastr.show(msg, bg);
     }
 
     remove = async () => {
         try {
             const request = await api.delete(this.state.id);
             if(request.status) {
-                alert('Excluido com sucesso!')
+                this.showMessage('Imóvel removido com sucesso!', 'success');
+            } else {
+                this.showMessage('Ocorreu um erro!', 'danger');	
             }
 
-            this.list();
-
         } catch (error) {
-            console.log(error)
+            this.showMessage('Ocorreu um erro!', 'danger');
         }
     }
 
-    list = async () => {        
+    list = async () => {
         const request = await api.List('page=1&limit=5');
         this.setState({
             items: request.result
         })
     }
 
+    callback = () => {
+        new Promise(function(resolve){resolve()})
+        .then( this.list() )
+    }     
+
     render() {
         const { items, table } = this.state;
-        
+
         return (
             <div className="container">
                 <Dialog                    
                     callback={this.remove}
                     onRef={ref => (this.dialog = ref)}
+                 />
+                 <Toastr
+                    callback={this.callback}
+                    onRef={ref => (this.toastr = ref)}
                  />
                 <div className="py-5 text-center">
                     <h2>Imóveis</h2>
