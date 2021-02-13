@@ -37,7 +37,6 @@ export default class Imoveis extends Component {
     }
     
     componentDidMount() {
-        console.log('id ' + this.state.id)
         this.list()
     }
 
@@ -47,18 +46,24 @@ export default class Imoveis extends Component {
         this.dialog.show()
     }
 
-    remove = () => {
+    remove = async () => {
         try {
-            console.log('removed ' + this.state.id)
+            const request = await api.delete(this.state.id);
+            if(request.status) {
+                alert('Excluido com sucesso!')
+            }
+
+            this.list();
+
         } catch (error) {
             console.log(error)
         }
     }
 
-    async list() {
-        const response = await api.List('page=1&limit=5');        
+    list = async () => {        
+        const request = await api.List('page=1&limit=5');
         this.setState({
-            items: response.data.result.data
+            items: request.result
         })
     }
 
