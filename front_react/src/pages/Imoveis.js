@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import Table from '../components/Table';
+import {table} from '../config/imoveis.config'
 import api from '../api/apiImovel';
 import Dialog from '../components/Dialog';
 import Toastr from '../components/Toastr';
@@ -22,36 +23,12 @@ export default class Imoveis extends Component {
                 current_page: 0,
                 last_page: 0
             },
-            table: {
-                actions: ['delete'],
-                columns: [
-                    {
-                        name: 'E-mail',
-                        mapping: 'email',
-                        sort: true
-                    },
-                    {
-                        name: 'Endereço',
-                        mapping: 'rua',
-                        sort: true
-                    },
-                    {
-                        name: 'Status',
-                        mapping: 'contrato',
-                        sort: true
-                    }
-                ]
-            }
+            table: table
         }        
     }
     
     componentDidMount() {
         this.list()
-    }
-
-    confirmDelete = (id) => {        
-        this.setState({id: id})
-        this.dialog.show()
     }
 
     setPage = async (page) => {
@@ -63,10 +40,13 @@ export default class Imoveis extends Component {
         this.list();
     }
 
-    showMessage = async (msg, bg) => {
-        await this.toastr.show(msg, bg);
+    /** prompt remove item */
+    confirmDelete = (id) => {
+        this.setState({id: id})
+        this.dialog.show()
     }
-
+  
+     /** function called by the callback remove */
     remove = async () => {
         try {
             const request = await api.delete(this.state.id);
@@ -81,6 +61,18 @@ export default class Imoveis extends Component {
         }
     }
 
+    /** prompt messsage after any action */
+    showMessage = async (msg, bg) => {
+        await this.toastr.show(msg, bg);
+    }    
+
+    /** callback function after delete */
+    callback = () => {
+        new Promise(function(resolve){resolve()})
+        .then( this.setPage(1))
+        .then( this.list() )
+    }    
+
     list = async () => {
         const { page, limit } = this.state.queryString;
         const request = await api.List(`page=${page}&limit=${limit}`);
@@ -91,20 +83,14 @@ export default class Imoveis extends Component {
                 last_page: request.paginate.last_page
             }
         })
-    }
-
-    callback = () => {
-        new Promise(function(resolve){resolve()})
-        .then( this.setPage(1))
-        .then( this.list() )
-    }     
+    }    
 
     render() {
         const { items, table, paginate } = this.state;
 
         return (
             <div className="container">
-                <Dialog                    
+                <Dialog
                     callback={this.remove}
                     onRef={ref => (this.dialog = ref)}
                  />
