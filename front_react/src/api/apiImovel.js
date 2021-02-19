@@ -8,7 +8,11 @@ const Imoveis = {
                         .then((response) => {
                             return {
                                 status: true,
-                                result: response.data.result.data
+                                result: response.data.result.data,
+                                paginate: {
+                                    current_page: response.data.result.current_page,
+                                    last_page: response.data.result.last_page
+                                }
                             };
                         })
                         .catch(err => {

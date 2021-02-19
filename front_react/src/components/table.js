@@ -1,8 +1,9 @@
 import BtnDelete from './contents/BtnDelete';
+import Paginate from './contents/Paginate';
 
 function showAction(type, props = null, item = {}){
     let show = false;
-    let {table} = props;
+    let { table } = props;
 
     if(!!table.actions && table.actions.length ){
         show = true;
@@ -26,7 +27,7 @@ function showAction(type, props = null, item = {}){
 }
 
 const Table = (props) => {
-    const {items, table } = props;
+    const {items, table, paginate } = props;
     
     return (
         <div>
@@ -50,7 +51,11 @@ const Table = (props) => {
                     ))}
                 </tbody>
             </table>
-        </div>
+            <Paginate 
+                paginate={paginate}
+                changePage={props.changePage}
+            />
+        </div>        
     )
 }
 

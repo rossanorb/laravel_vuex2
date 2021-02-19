@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import ImoveisList from '../components/Table';
+import Table from '../components/Table';
 import api from '../api/apiImovel';
 import Dialog from '../components/Dialog';
 import Toastr from '../components/Toastr';
@@ -14,6 +14,14 @@ export default class Imoveis extends Component {
             id: 0,
             data: '',
             errors: '',
+            queryString: {
+                page: 1,
+                limit: 10
+            },
+            paginate: {
+                current_page: 0,
+                last_page: 0
+            },
             table: {
                 actions: ['delete'],
                 columns: [
@@ -46,6 +54,15 @@ export default class Imoveis extends Component {
         this.dialog.show()
     }
 
+    setPage = async (page) => {
+        this.state.queryString.page = page;
+    }
+
+    changePage = (page) => {
+        this.setPage(page);
+        this.list();
+    }
+
     showMessage = async (msg, bg) => {
         await this.toastr.show(msg, bg);
     }
@@ -65,19 +82,25 @@ export default class Imoveis extends Component {
     }
 
     list = async () => {
-        const request = await api.List('page=1&limit=5');
+        const { page, limit } = this.state.queryString;
+        const request = await api.List(`page=${page}&limit=${limit}`);
         this.setState({
-            items: request.result
+            items: request.result,
+            paginate:{
+                current_page: request.paginate.current_page,
+                last_page: request.paginate.last_page
+            }
         })
     }
 
     callback = () => {
         new Promise(function(resolve){resolve()})
+        .then( this.setPage(1))
         .then( this.list() )
     }     
 
     render() {
-        const { items, table } = this.state;
+        const { items, table, paginate } = this.state;
 
         return (
             <div className="container">
@@ -100,11 +123,13 @@ export default class Imoveis extends Component {
                     </Router>
                     <div className="col-sm-12">
                         <div className="table-responsive">
-                        { items && <ImoveisList 
-                                    items={items}
+                        { items && <Table 
                                     table={table}
+                                    items={items}                                    
                                     confirmDelete={ this.confirmDelete }
-                                /> 
+                                    changePage={ this.changePage }
+                                    paginate={ paginate }
+                                />
                         }
                         </div>
                     </div>
