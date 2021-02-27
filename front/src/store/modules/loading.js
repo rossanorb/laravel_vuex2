@@ -38,6 +38,13 @@ const actions = {
                 commit('setLoading', false)
                 return Promise.reject(error)
             })
+    },
+
+    start({ commit }){
+        commit('setLoading', true);
+        setTimeout(function(){
+            commit('setLoading', false);
+        }, 1000);        
     }
 }
 

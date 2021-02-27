@@ -24,8 +24,12 @@ export default {
         ...mapActions("loading", ["enableInterceptor", "start"])
     },
 
+    created(){
+        this.enableInterceptor();        
+    },
+
     mounted() {        
-        this.enableInterceptor()
+        this.start(false);
     }
 
 };
