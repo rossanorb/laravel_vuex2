@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Loading from './components/Loading';
 import Imoveis from './pages/Imoveis';
 import Contratos from './pages/Contratos';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -28,7 +29,8 @@ function App() {
                 <p>2017-2020 Company, Inc. Privacy Terms</p>
             </footer>
         </main>
-        </Router>
+        </Router>        
+        <Loading />
     </div>
   );
 }
