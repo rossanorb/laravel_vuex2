@@ -30,6 +30,9 @@ vue 2/vuex
 
     docker exec app ./vendor/bin/phpunit --debug --verbose --color
 
+- Rodar o comando abaixo se falhar ao carregar alguma classe
+    docker exec app php composer dumpautoload
+
 
 - Acessar aplicação pela url http://localhost
 
