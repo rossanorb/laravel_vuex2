@@ -2,7 +2,7 @@ version: "3"
 
 services:
     app:
-      container_name: app
+      container_name: laravel_vuex2_app
       build: ./api/docker
       volumes:
         - ./api:/var/www
@@ -13,7 +13,7 @@ services:
         - mysql
 
     mysql:
-        container_name: "mysql"
+        container_name: "laravel_vuex2_mysql"
         image: mysql:5.7
         command: --innodb-use-native-aio=0
         restart: on-failure:2
@@ -29,7 +29,7 @@ services:
 
     # SPA com Vuex
     front:
-      container_name: "front"
+      container_name: "laravel_vuex2_front"
       build: ./front
       volumes:
         - ./front:/app:rw
