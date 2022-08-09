@@ -5,19 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Services\ApiService;
 use App\Http\Services\ImovelValidatorService;
+use App\Interfaces\Services\ImovelServiceInterface;
+
 use App\Imovel;
 
 class ImovelController extends Controller
 {
     private $apiService;
     private $validatorService;
+    private $imovelService;
 
     private $order = ['email','rua'];
     private $by = ['asc', 'desc'];
 
-    public function __construct( ApiService $apiService, ImovelValidatorService $validatorService ) {
+    public function __construct( 
+        ApiService $apiService, 
+        ImovelValidatorService $validatorService,
+        ImovelServiceInterface $imovelService 
+    ) 
+    {
         $this->apiService = $apiService;
         $this->validatorService = $validatorService;
+        $this->imovelService = $imovelService;
     }
 
     public function index( Request $request ) {
@@ -59,8 +68,8 @@ class ImovelController extends Controller
         }        
 
         try {
-
-            $this->apiService->setResult( Imovel::create( $request ) );
+            $imovel = $this->imovelService->create($request);
+            $this->apiService->setResult( $imovel );
             $this->apiService->setStatus( true );
             return $this->apiService->response( 201 );
 
@@ -86,7 +95,7 @@ class ImovelController extends Controller
     }    
 
     private function error( $e ) {
-        \Log::error( $e->getMessage() );
+        // \Log::error( $e->getMessage() );
         $this->apiService->setErrors( [
             'message' => '( ＾皿＾)っ Something went wrong!',
             'description' => $e->getMessage()

@@ -28,14 +28,14 @@ services:
             MYSQL_PASSWORD: 102030
 
     # SPA com Vuex
-    front:
-      container_name: "laravel_vuex2_front"
-      build: ./front
-      volumes:
-        - ./front:/app:rw
-        - /front/node_modules
-      ports:
-        - "80:3000"
-      depends_on: 
-        - mysql        
-        - app
+    # front:
+    #   container_name: "laravel_vuex2_front"
+    #   build: ./front
+    #   volumes:
+    #     - ./front:/app:rw
+    #     - /front/node_modules
+    #   ports:
+    #     - "80:3000"
+    #   depends_on: 
+    #     - mysql        
+    #     - app

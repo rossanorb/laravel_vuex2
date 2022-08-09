@@ -28,10 +28,10 @@ vue 2/vuex
 
 - ou com o container rodando executar no terminal
 
-    docker exec app ./vendor/bin/phpunit --debug --verbose --color
+    docker exec laravel_vuex2_app ./vendor/bin/phpunit --debug --verbose --color
 
 - Rodar o comando abaixo se falhar ao carregar alguma classe
-    docker exec app php composer dumpautoload
+    docker exec  php composer dumpautoload
 
 
 - Acessar aplicação pela url http://localhost
