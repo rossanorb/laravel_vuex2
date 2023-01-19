@@ -1,0 +1,7 @@
+@hostname = localhost:9000
+
+###
+POST http://{{hostname}}/api/imoveis
+content-type: application/x-www-form-urlencoded
+
+ "email": "rossanorb@gmail.com"    

@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import Table from '../components/Table';
+
 import {table} from '../config/imoveis.config'
 import api from '../api/apiImovel';
 import Dialog from '../components/Dialog';
 import Toastr from '../components/Toastr';
+import Table from '../components/table';
 
 export default class Imoveis extends Component {
     constructor(props){

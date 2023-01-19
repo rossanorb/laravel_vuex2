@@ -15,11 +15,11 @@ vue 2/vuex
 
 - Rodar Migrations:
 
-    docker exec app php artisan migrate
+    docker exec laravel_vuex2_app php artisan migrate
 
 - Rodar Migrations & Seeeder:
 
-    docker exec app php artisan migrate:refresh --seed    
+    docker exec laravel_vuex2_app php artisan migrate:refresh --seed    
 
 - Para rodar testes:
 - Acessar container docker php e rodar o seguinte comando:
